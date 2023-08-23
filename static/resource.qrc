@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/Bootstrap-Bootstrap-Bootstrap-info-circle.ico</file>
+    <file>icons/Microsoft-Fluentui-Emoji-Mono-Infinity.ico</file>
+    <file>icons/Microsoft-Fluentui-Emoji-Mono-Dna.ico</file>
+    <file>icons/Ionic-Ionicons-Home.ico</file>
+    <file>icons/favicon.ico</file>
+  </qresource>
+</RCC>
