@@ -7,9 +7,7 @@ class CollapsibleBox(QWidget):
     def __init__(self):
         super().__init__()
 
-        font = QFont()
-        font.setFamilies(["Segoe UI"])
-        font.setPointSize(12)
+        font = QFont("Segoe UI", 12)
 
         # toggle_btn
         self.toggle_btn = QToolButton()
