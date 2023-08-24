@@ -9,7 +9,8 @@ Cause I'm the one who can make changes, who make differences.
 import pandas as pd
 from joblib import load
 
-cyp_isoforms = ("All", "CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4")
+cyp_isoforms = ('All', 'CYP1A2 Inhibition', 'CYP2B6 Inhibition', 'CYP2C8 Inhibition', 
+                'CYP2C9 Inhibition', 'CYP2C19 Inhibition', 'CYP2D6 Inhibition', 'CYP3A4 Inhibition')
 
 models = {
     '2b6': load('models/2b6_maccs_svm.pkl'),

@@ -25,39 +25,16 @@ def rdkit_numpy_convert(fp):
     return np.asarray(output)
 
 
-def is_in_training_set(original_smiles, current_smiles, prediction, train_data):
+def is_in_training_set(cano_smiles, inhib_proba, train_data):
     """
     Check if the input SMILES string is in the training set, if molecule is in the training set,
-    new_smiles and true_value will cover the value of the original smiles and prediction
-
-    Parameters
-    ----------
-    original_smiles : str
-        SMILES string from rdkit.Chem.MolToSmiles()
-    current_smiles : str
-        SMILES string after the first check
-    prediction : str
-        Prediction inhibition probability from model
-    train_data : DataFrame
-        Training set, including two columns: SMILES and CLASS
-    
-    Returns
-    -------
-    new_smiles or current_smiles : str
-        If the input SMILES string is in the training set, add a '*' before the SMILES string
-    true_value or prediction : str
-        If the input SMILES string is in the training set, change the prediction result to the true value
-
-    Examples
-    --------
-    smiles, inhibition_proba_str_2b6 = is_in_training_set(mol, inhibition_proba_str_2b6, train_data_2b6)
+    true_value will cover the inhib_proba, and add a '*' after the true_value
     """
     for i in range(len(train_data)):
-        if original_smiles == train_data['SMILES'][i]:
-            new_smiles = '*' + original_smiles
+        if cano_smiles == train_data['SMILES'][i]:
             true_value = str(train_data['CLASS'][i])
-            return new_smiles, true_value
-    return current_smiles, prediction
+            return ''.join(true_value, '*')
+    return inhib_proba
 
 
 def is_in_applicability_domain(x_scaled, x_train_scaled, threshold):
@@ -90,7 +67,7 @@ def is_in_applicability_domain(x_scaled, x_train_scaled, threshold):
         return 'ID'
 
 
-def predict_inhibition_proba(x, x_train, model):
+def predict_inhib_proba(x, x_train, model):
     """
     Predict inhibition probability, x_train and model are from pkl files, 
     only need to get features(x) from SMILES string
@@ -106,22 +83,22 @@ def predict_inhibition_proba(x, x_train, model):
         
     Returns
     -------
-    inhibition_proba_str : str
+    inhib_proba : str
         Inhibition probability
     x_scaled : numpy.ndarray
         Scaled features
     
     Examples
     --------
-    inhibition_proba_str_2b6, x_2b6_scaled = predict_inhibition_proba(x_2b6, x_train_2b6, model_2b6)
+    inhib_proba_2b6, x_2b6_scaled = predict_inhib_proba(x_2b6, x_train_2b6, model_2b6)
     """
     
     # Scale features
     scaler = StandardScaler().fit(x_train)
     x_scaled = scaler.transform(x)
-    
     # Model prediction
-    inhibition_proba = np.round(model.predict_proba(x_scaled)[:, 1], 3)
-    inhibition_proba_str = "".join(str(i) for i in inhibition_proba)
+    inhib_proba = np.round(model.predict_proba(x_scaled)[:, 1], 3)
+    # Convert to string
+    inhib_proba = ''.join(str(i) for i in inhib_proba)
     
-    return inhibition_proba_str, x_scaled
+    return inhib_proba, x_scaled

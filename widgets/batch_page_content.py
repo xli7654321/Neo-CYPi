@@ -22,7 +22,7 @@ class batchPageContent(QWidget, Ui_batchPageContent):
 
         # collapsible box
         self.batch_collapsible_box = CollapsibleBox()
-        self.batch_collapsible_box.setObjectName("batch_collapsible_box")
+        self.batch_collapsible_box.setObjectName('batch_collapsible_box')
         
         cbox_layout = QVBoxLayout()
         cbox_layout.setSpacing(10)
@@ -59,7 +59,7 @@ class batchPageContent(QWidget, Ui_batchPageContent):
     @Slot()
     def upload_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
-            self, caption="Choose file", filter='Text Files (*.txt);;SDF Files (*.sdf)'
+            self, caption='Choose file', filter='Text Files (*.txt);;SDF Files (*.sdf)'
         )
 
         if file_path:

@@ -7,11 +7,11 @@ class CollapsibleBox(QWidget):
     def __init__(self):
         super().__init__()
 
-        font = QFont("Segoe UI", 12)
+        font = QFont('Segoe UI', 12)
 
         # toggle_btn
         self.toggle_btn = QToolButton()
-        self.toggle_btn.setObjectName("toolbtn")
+        self.toggle_btn.setObjectName('toolbtn')
         self.toggle_btn.setFont(font)
         self.toggle_btn.setText('Select Prediction Models')
         self.toggle_btn.setCheckable(True)
@@ -27,7 +27,7 @@ class CollapsibleBox(QWidget):
 
         # toggle_btn_content
         self.toggle_btn_content = QScrollArea()
-        self.toggle_btn_content.setObjectName("toolbtn_content")
+        self.toggle_btn_content.setObjectName('toolbtn_content')
         self.toggle_btn_content.setFont(font)
         self.toggle_btn_content.setMinimumHeight(0)
         self.toggle_btn_content.setMaximumHeight(0)
@@ -49,13 +49,13 @@ class CollapsibleBox(QWidget):
         # 定义动画
         self.toggle_animation = QParallelAnimationGroup(self)
         self.toggle_animation.addAnimation(
-            QPropertyAnimation(self, b"minimumHeight")
+            QPropertyAnimation(self, b'minimumHeight')
         )
         self.toggle_animation.addAnimation(
-            QPropertyAnimation(self, b"maximumHeight")
+            QPropertyAnimation(self, b'maximumHeight')
         )
         self.toggle_animation.addAnimation(
-            QPropertyAnimation(self.toggle_btn_content, b"maximumHeight")
+            QPropertyAnimation(self.toggle_btn_content, b'maximumHeight')
         )
 
     @Slot(bool)
