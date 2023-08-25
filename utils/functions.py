@@ -33,7 +33,7 @@ def is_in_training_set(cano_smiles, inhib_proba, train_data):
     for i in range(len(train_data)):
         if cano_smiles == train_data['SMILES'][i]:
             true_value = str(train_data['CLASS'][i])
-            return ''.join(true_value, '*')
+            return ''.join([true_value, '*'])
     return inhib_proba
 
 

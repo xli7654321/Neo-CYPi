@@ -25,9 +25,9 @@ class Ui_batchPageContent(object):
     def setupUi(self, batchPageContent):
         if not batchPageContent.objectName():
             batchPageContent.setObjectName(u"batchPageContent")
-        batchPageContent.resize(714, 610)
-        batchPageContent.setMinimumSize(QSize(714, 610))
-        batchPageContent.setMaximumSize(QSize(714, 610))
+        batchPageContent.resize(864, 642)
+        batchPageContent.setMinimumSize(QSize(864, 642))
+        batchPageContent.setMaximumSize(QSize(864, 642))
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(12)
@@ -35,18 +35,32 @@ class Ui_batchPageContent(object):
         batchPageContent.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.batch_scrollArea = QScrollArea(batchPageContent)
         self.batch_scrollArea.setObjectName(u"batch_scrollArea")
-        self.batch_scrollArea.setGeometry(QRect(0, 0, 714, 610))
+        self.batch_scrollArea.setGeometry(QRect(0, 0, 864, 642))
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.batch_scrollArea.sizePolicy().hasHeightForWidth())
+        self.batch_scrollArea.setSizePolicy(sizePolicy)
         self.batch_scrollArea.setFrameShape(QFrame.NoFrame)
         self.batch_scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.batch_scrollArea.setWidgetResizable(True)
         self.batch_scrollAreaWidgetContents = QWidget()
         self.batch_scrollAreaWidgetContents.setObjectName(u"batch_scrollAreaWidgetContents")
-        self.batch_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 697, 610))
+        self.batch_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 847, 623))
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.batch_scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
+        self.batch_scrollAreaWidgetContents.setSizePolicy(sizePolicy1)
         self.batch_scrollAreaWidgetContents.setMinimumSize(QSize(0, 0))
         self.verticalLayout = QVBoxLayout(self.batch_scrollAreaWidgetContents)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(40, 20, 40, 0)
+        self.verticalLayout.setContentsMargins(40, 0, 40, 0)
+        self.verticalSpacer = QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
         self.batch_headline_hlay = QHBoxLayout()
         self.batch_headline_hlay.setSpacing(6)
         self.batch_headline_hlay.setObjectName(u"batch_headline_hlay")
@@ -61,6 +75,8 @@ class Ui_batchPageContent(object):
 
         self.batch_label = QLabel(self.batch_scrollAreaWidgetContents)
         self.batch_label.setObjectName(u"batch_label")
+        sizePolicy1.setHeightForWidth(self.batch_label.sizePolicy().hasHeightForWidth())
+        self.batch_label.setSizePolicy(sizePolicy1)
         font1 = QFont()
         font1.setFamilies([u"Segoe UI"])
         font1.setPointSize(14)
@@ -72,13 +88,13 @@ class Ui_batchPageContent(object):
 
         self.verticalLayout.addLayout(self.batch_headline_hlay)
 
-        self.verticalSpacer_4 = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_4 = QSpacerItem(0, 25, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer_4)
 
         self.batch_gridLayout = QGridLayout()
         self.batch_gridLayout.setObjectName(u"batch_gridLayout")
-        self.batch_gridLayout.setHorizontalSpacing(10)
+        self.batch_gridLayout.setHorizontalSpacing(12)
         self.batch_gridLayout.setVerticalSpacing(0)
         self.batch_gridLayout.setContentsMargins(-1, 0, -1, -1)
         self.batch_input_lineEdit = QLineEdit(self.batch_scrollAreaWidgetContents)
@@ -90,6 +106,8 @@ class Ui_batchPageContent(object):
 
         self.batch_input_label = QLabel(self.batch_scrollAreaWidgetContents)
         self.batch_input_label.setObjectName(u"batch_input_label")
+        sizePolicy1.setHeightForWidth(self.batch_input_label.sizePolicy().hasHeightForWidth())
+        self.batch_input_label.setSizePolicy(sizePolicy1)
         font2 = QFont()
         font2.setFamilies([u"Segoe UI"])
         font2.setPointSize(13)
@@ -113,65 +131,75 @@ class Ui_batchPageContent(object):
         self.verticalLayout.addItem(self.verticalSpacer_2)
 
         self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalSpacer_2 = QSpacerItem(125, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
+
         self.batch_start_btn = QPushButton(self.batch_scrollAreaWidgetContents)
         self.batch_start_btn.setObjectName(u"batch_start_btn")
         self.batch_start_btn.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.batch_start_btn)
 
-        self.horizontalSpacer = QSpacerItem(300, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(125, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
-        self.verticalSpacer_3 = QSpacerItem(0, 45, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_3 = QSpacerItem(0, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer_3)
 
         self.batch_result_groupbox = QGroupBox(self.batch_scrollAreaWidgetContents)
         self.batch_result_groupbox.setObjectName(u"batch_result_groupbox")
+        self.batch_result_groupbox.setMinimumSize(QSize(0, 360))
         self.batch_result_groupbox.setFont(font1)
         self.batch_result_groupbox.setAlignment(Qt.AlignCenter)
         self.batch_result_groupbox.setFlat(True)
-        self.horizontalLayout = QHBoxLayout(self.batch_result_groupbox)
-        self.horizontalLayout.setSpacing(10)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 10, 0, 75)
+        self.verticalLayout_2 = QVBoxLayout(self.batch_result_groupbox)
+        self.verticalLayout_2.setSpacing(6)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(0, 10, 0, 0)
         self.batch_tableview = QTableView(self.batch_result_groupbox)
         self.batch_tableview.setObjectName(u"batch_tableview")
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.batch_tableview.sizePolicy().hasHeightForWidth())
-        self.batch_tableview.setSizePolicy(sizePolicy)
-        self.batch_tableview.setMinimumSize(QSize(0, 227))
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.batch_tableview.sizePolicy().hasHeightForWidth())
+        self.batch_tableview.setSizePolicy(sizePolicy2)
+        self.batch_tableview.setMinimumSize(QSize(0, 290))
         self.batch_tableview.setFont(font)
 
-        self.horizontalLayout.addWidget(self.batch_tableview)
+        self.verticalLayout_2.addWidget(self.batch_tableview)
 
-        self.batch_download_vlay = QVBoxLayout()
-        self.batch_download_vlay.setSpacing(0)
-        self.batch_download_vlay.setObjectName(u"batch_download_vlay")
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(5)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.batch_download_btn = QPushButton(self.batch_result_groupbox)
         self.batch_download_btn.setObjectName(u"batch_download_btn")
-        self.batch_download_btn.setMinimumSize(QSize(95, 0))
         self.batch_download_btn.setFont(font)
 
-        self.batch_download_vlay.addWidget(self.batch_download_btn)
+        self.horizontalLayout_3.addWidget(self.batch_download_btn)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.batch_clear_btn = QPushButton(self.batch_result_groupbox)
+        self.batch_clear_btn.setObjectName(u"batch_clear_btn")
+        self.batch_clear_btn.setFont(font)
 
-        self.batch_download_vlay.addItem(self.verticalSpacer)
+        self.horizontalLayout_3.addWidget(self.batch_clear_btn)
 
 
-        self.horizontalLayout.addLayout(self.batch_download_vlay)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_3)
 
-        self.horizontalLayout.setStretch(0, 1)
 
         self.verticalLayout.addWidget(self.batch_result_groupbox)
+
+        self.verticalSpacer_5 = QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_5)
 
         self.batch_scrollArea.setWidget(self.batch_scrollAreaWidgetContents)
 
@@ -189,10 +217,7 @@ class Ui_batchPageContent(object):
         self.batch_input_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
         self.batch_start_btn.setText(QCoreApplication.translate("batchPageContent", u"START PREDICTION", None))
         self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPageContent", u"Results", None))
-#if QT_CONFIG(tooltip)
-        self.batch_download_btn.setToolTip(QCoreApplication.translate("batchPageContent", u"Download results as CSV format file", None))
-#endif // QT_CONFIG(tooltip)
-        self.batch_download_btn.setText(QCoreApplication.translate("batchPageContent", u"Download\n"
-"Results", None))
+        self.batch_download_btn.setText(QCoreApplication.translate("batchPageContent", u"Download Results", None))
+        self.batch_clear_btn.setText(QCoreApplication.translate("batchPageContent", u"Clear Results", None))
     # retranslateUi
 

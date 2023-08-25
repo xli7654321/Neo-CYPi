@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>714</width>
-    <height>610</height>
+    <width>864</width>
+    <height>642</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>714</width>
-    <height>610</height>
+    <width>864</width>
+    <height>642</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>714</width>
-    <height>610</height>
+    <width>864</width>
+    <height>642</height>
    </size>
   </property>
   <property name="font">
@@ -39,9 +39,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>714</width>
-     <height>610</height>
+     <width>864</width>
+     <height>642</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="frameShape">
     <enum>QFrame::NoFrame</enum>
@@ -57,9 +63,15 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>697</width>
-      <height>610</height>
+      <width>847</width>
+      <height>623</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="minimumSize">
      <size>
@@ -75,7 +87,7 @@
       <number>40</number>
      </property>
      <property name="topMargin">
-      <number>20</number>
+      <number>0</number>
      </property>
      <property name="rightMargin">
       <number>40</number>
@@ -83,6 +95,22 @@
      <property name="bottomMargin">
       <number>0</number>
      </property>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item>
       <layout class="QHBoxLayout" name="batch_headline_hlay">
        <property name="spacing">
@@ -112,6 +140,12 @@
        </item>
        <item>
         <widget class="QLabel" name="batch_label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -139,7 +173,7 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>25</height>
         </size>
        </property>
       </spacer>
@@ -150,7 +184,7 @@
         <number>0</number>
        </property>
        <property name="horizontalSpacing">
-        <number>10</number>
+        <number>12</number>
        </property>
        <property name="verticalSpacing">
         <number>0</number>
@@ -173,6 +207,12 @@
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="batch_input_label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="font">
           <font>
            <family>Segoe UI</family>
@@ -223,6 +263,25 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>125</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <widget class="QPushButton" name="batch_start_btn">
          <property name="font">
@@ -246,7 +305,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>300</width>
+           <width>125</width>
            <height>0</height>
           </size>
          </property>
@@ -265,13 +324,19 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>0</width>
-         <height>45</height>
+         <height>40</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
       <widget class="QGroupBox" name="batch_result_groupbox">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>360</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>Segoe UI</family>
@@ -287,9 +352,9 @@
        <property name="flat">
         <bool>true</bool>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
         <property name="spacing">
-         <number>10</number>
+         <number>6</number>
         </property>
         <property name="leftMargin">
          <number>0</number>
@@ -301,7 +366,7 @@
          <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>75</number>
+         <number>0</number>
         </property>
         <item>
          <widget class="QTableView" name="batch_tableview">
@@ -314,7 +379,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>227</height>
+            <height>290</height>
            </size>
           </property>
           <property name="font">
@@ -326,50 +391,56 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="batch_download_vlay">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="spacing">
-           <number>0</number>
+           <number>5</number>
           </property>
           <item>
            <widget class="QPushButton" name="batch_download_btn">
-            <property name="minimumSize">
-             <size>
-              <width>95</width>
-              <height>0</height>
-             </size>
-            </property>
             <property name="font">
              <font>
               <family>Segoe UI</family>
               <pointsize>12</pointsize>
              </font>
             </property>
-            <property name="toolTip">
-             <string>Download results as CSV format file</string>
-            </property>
             <property name="text">
-             <string>Download
-Results</string>
+             <string>Download Results</string>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+           <widget class="QPushButton" name="batch_clear_btn">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>12</pointsize>
+             </font>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
+            <property name="text">
+             <string>Clear Results</string>
             </property>
-           </spacer>
+           </widget>
           </item>
          </layout>
         </item>
        </layout>
       </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>

@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>635</height>
+    <width>1000</width>
+    <height>667</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>850</width>
-    <height>635</height>
+    <width>1000</width>
+    <height>667</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>850</width>
-    <height>635</height>
+    <width>1000</width>
+    <height>667</height>
    </size>
   </property>
   <property name="font">
@@ -59,14 +59,14 @@
      <widget class="QWidget" name="content_widget" native="true">
       <property name="minimumSize">
        <size>
-        <width>714</width>
-        <height>610</height>
+        <width>864</width>
+        <height>642</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>714</width>
-        <height>610</height>
+        <width>864</width>
+        <height>642</height>
        </size>
       </property>
       <property name="font">
@@ -94,7 +94,7 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="home_page">
           <widget class="QWidget" name="layoutWidget">
@@ -268,13 +268,13 @@
      <widget class="QWidget" name="statusbar_widget" native="true">
       <property name="minimumSize">
        <size>
-        <width>714</width>
+        <width>864</width>
         <height>25</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>714</width>
+        <width>864</width>
         <height>25</height>
        </size>
       </property>
@@ -291,13 +291,13 @@
       <property name="minimumSize">
        <size>
         <width>136</width>
-        <height>635</height>
+        <height>667</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>136</width>
-        <height>635</height>
+        <height>667</height>
        </size>
       </property>
       <layout class="QVBoxLayout" name="sidebar_vLayout">

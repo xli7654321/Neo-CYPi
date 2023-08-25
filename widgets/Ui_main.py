@@ -24,9 +24,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(850, 635)
-        MainWindow.setMinimumSize(QSize(850, 635))
-        MainWindow.setMaximumSize(QSize(850, 635))
+        MainWindow.resize(1000, 667)
+        MainWindow.setMinimumSize(QSize(1000, 667))
+        MainWindow.setMaximumSize(QSize(1000, 667))
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(10)
@@ -43,8 +43,8 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.content_widget = QWidget(self.centralwidget)
         self.content_widget.setObjectName(u"content_widget")
-        self.content_widget.setMinimumSize(QSize(714, 610))
-        self.content_widget.setMaximumSize(QSize(714, 610))
+        self.content_widget.setMinimumSize(QSize(864, 642))
+        self.content_widget.setMaximumSize(QSize(864, 642))
         font1 = QFont()
         font1.setFamilies([u"Segoe UI"])
         font1.setPointSize(12)
@@ -146,8 +146,8 @@ class Ui_MainWindow(object):
 
         self.statusbar_widget = QWidget(self.centralwidget)
         self.statusbar_widget.setObjectName(u"statusbar_widget")
-        self.statusbar_widget.setMinimumSize(QSize(714, 25))
-        self.statusbar_widget.setMaximumSize(QSize(714, 25))
+        self.statusbar_widget.setMinimumSize(QSize(864, 25))
+        self.statusbar_widget.setMaximumSize(QSize(864, 25))
         font3 = QFont()
         font3.setFamilies([u"Segoe UI"])
         font3.setPointSize(11)
@@ -157,8 +157,8 @@ class Ui_MainWindow(object):
 
         self.sidebar_widget = QWidget(self.centralwidget)
         self.sidebar_widget.setObjectName(u"sidebar_widget")
-        self.sidebar_widget.setMinimumSize(QSize(136, 635))
-        self.sidebar_widget.setMaximumSize(QSize(136, 635))
+        self.sidebar_widget.setMinimumSize(QSize(136, 667))
+        self.sidebar_widget.setMaximumSize(QSize(136, 667))
         self.sidebar_vLayout = QVBoxLayout(self.sidebar_widget)
         self.sidebar_vLayout.setSpacing(0)
         self.sidebar_vLayout.setObjectName(u"sidebar_vLayout")
@@ -241,7 +241,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.exit_btn.clicked.connect(MainWindow.close)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

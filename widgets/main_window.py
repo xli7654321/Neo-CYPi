@@ -7,6 +7,7 @@ Just waiting for good things to happen won't change anything,
 Cause I'm the one who can make changes, who make differences.
 """
 from PySide6.QtCore import Slot
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
 
 from widgets.Ui_main import Ui_MainWindow
@@ -39,6 +40,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.single_btn.toggled.connect(self.on_single_btn_toggled)
         self.batch_btn.toggled.connect(self.on_batch_btn_toggled)
         self.about_btn.toggled.connect(self.on_about_btn_toggled)
+
+        self.statusbar_active = False
+        self.statusbar_widget.mousePressEvent = self.toggle_statusbar_style
 
     def add_home_page_content(self):
         pass
@@ -80,3 +84,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if checked:
             self.stackedWidget.setCurrentIndex(3)
 
+    def toggle_statusbar_style(self, event):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.statusbar_active = not self.statusbar_active
+            if self.statusbar_active:
+                self.statusbar_widget.setStyleSheet('border-top: 1px solid coral;')
+            else:
+                self.statusbar_widget.setStyleSheet('border-top: 1px solid lightslategray;')
+        # 重写 mousePressEvent 后确保原有的事件不会被覆盖
+        super().mousePressEvent(event)
