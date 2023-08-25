@@ -179,11 +179,11 @@ class Ui_singlePageContent(object):
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.single_download_btn = QPushButton(self.single_result_groupbox)
-        self.single_download_btn.setObjectName(u"single_download_btn")
-        self.single_download_btn.setFont(font)
+        self.single_save_btn = QPushButton(self.single_result_groupbox)
+        self.single_save_btn.setObjectName(u"single_save_btn")
+        self.single_save_btn.setFont(font)
 
-        self.horizontalLayout_3.addWidget(self.single_download_btn)
+        self.horizontalLayout_3.addWidget(self.single_save_btn)
 
         self.single_clear_btn = QPushButton(self.single_result_groupbox)
         self.single_clear_btn.setObjectName(u"single_clear_btn")
@@ -217,7 +217,7 @@ class Ui_singlePageContent(object):
         self.single_example_btn.setText(QCoreApplication.translate("singlePageContent", u"Example", None))
         self.single_start_btn.setText(QCoreApplication.translate("singlePageContent", u"START PREDICTION", None))
         self.single_result_groupbox.setTitle(QCoreApplication.translate("singlePageContent", u"Results", None))
-        self.single_download_btn.setText(QCoreApplication.translate("singlePageContent", u"Download Results", None))
+        self.single_save_btn.setText(QCoreApplication.translate("singlePageContent", u"Save Results", None))
         self.single_clear_btn.setText(QCoreApplication.translate("singlePageContent", u"Clear Results", None))
     # retranslateUi
 

@@ -179,11 +179,11 @@ class Ui_batchPageContent(object):
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.batch_download_btn = QPushButton(self.batch_result_groupbox)
-        self.batch_download_btn.setObjectName(u"batch_download_btn")
-        self.batch_download_btn.setFont(font)
+        self.batch_save_btn = QPushButton(self.batch_result_groupbox)
+        self.batch_save_btn.setObjectName(u"batch_save_btn")
+        self.batch_save_btn.setFont(font)
 
-        self.horizontalLayout_3.addWidget(self.batch_download_btn)
+        self.horizontalLayout_3.addWidget(self.batch_save_btn)
 
         self.batch_clear_btn = QPushButton(self.batch_result_groupbox)
         self.batch_clear_btn.setObjectName(u"batch_clear_btn")
@@ -217,7 +217,7 @@ class Ui_batchPageContent(object):
         self.batch_input_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
         self.batch_start_btn.setText(QCoreApplication.translate("batchPageContent", u"START PREDICTION", None))
         self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPageContent", u"Results", None))
-        self.batch_download_btn.setText(QCoreApplication.translate("batchPageContent", u"Download Results", None))
+        self.batch_save_btn.setText(QCoreApplication.translate("batchPageContent", u"Save Results", None))
         self.batch_clear_btn.setText(QCoreApplication.translate("batchPageContent", u"Clear Results", None))
     # retranslateUi
 

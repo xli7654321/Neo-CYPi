@@ -59,7 +59,7 @@ class batchPageContent(QWidget, Ui_batchPageContent):
     @Slot()
     def upload_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
-            self, caption='Choose file', filter='Text Files (*.txt);;SDF Files (*.sdf)'
+            self, caption='Choose file', filter='Text Files (*.txt);;SDF Files (*.sdf);;All Files (*)'
         )
 
         if file_path:

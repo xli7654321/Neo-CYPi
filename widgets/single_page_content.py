@@ -10,9 +10,9 @@ import deepchem as dc
 import pandas as pd
 from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles
 
-from PySide6.QtCore import Qt, Slot
-from PySide6.QtGui import QFont, QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QCheckBox, QHeaderView, QVBoxLayout, QWidget
+from PySide6.QtCore import Qt, Slot, QRect
+from PySide6.QtGui import QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
 
 from utils.functions import *
 from utils.load_models import *
@@ -102,7 +102,7 @@ class singlePageContent(QWidget, Ui_singlePageContent):
 
         self.single_clear_btn.clicked.connect(self.clear_results)
 
-        self.single_download_btn.clicked.connect(self.save_results)
+        self.single_save_btn.clicked.connect(self.save_results)
 
     @Slot()
     def manage_cboxes_state(self):
@@ -194,7 +194,35 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         self.result_model.removeRows(0, self.result_model.rowCount())
 
     def save_results(self):
-        pass
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, caption='Save File', dir='results.csv', filter='CSV Files (*.csv);;All Files (*)'
+        )
+        
+        if file_path:
+            if not file_path.endswith('.csv'):
+                file_path += '.csv'
+        
+        # Extract headers
+        headers = [self.result_model.horizontalHeaderItem(i).text() 
+                   for i in range(self.result_model.columnCount())]
+        
+        # Extract data
+        data = []
+        for row in range(self.result_model.rowCount()):
+            row_data = [str(row + 1)]
+            for column in range(self.result_model.columnCount()):
+                item = self.result_model.item(row, column)
+                if item and item.text():
+                    row_data.append(item.text())
+                else:
+                    row_data.append('')
+            data.append(row_data)
+        
+        # Convert to DataFrame
+        df = pd.DataFrame(data, columns=['Index'] + headers)
+        
+        # Save to CSV
+        df.to_csv(file_path, index=False)
 
     # predict method for each isoform
     def predict_2b6_inhib(self, smiles, cano_smiles, mol=None):

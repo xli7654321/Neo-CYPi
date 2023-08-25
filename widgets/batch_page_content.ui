@@ -396,7 +396,7 @@
            <number>5</number>
           </property>
           <item>
-           <widget class="QPushButton" name="batch_download_btn">
+           <widget class="QPushButton" name="batch_save_btn">
             <property name="font">
              <font>
               <family>Segoe UI</family>
@@ -404,7 +404,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Download Results</string>
+             <string>Save Results</string>
             </property>
            </widget>
           </item>
