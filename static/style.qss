@@ -83,7 +83,7 @@ QHeaderView {
     background-color: white;
 }
 
-#batch_tableview {
+#batch_table {
     border: 1px solid lightskyblue;
 }
 

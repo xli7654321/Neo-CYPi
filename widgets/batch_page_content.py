@@ -8,11 +8,19 @@ Cause I'm the one who can make changes, who make differences.
 """
 import os
 
-from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QCheckBox, QFileDialog, QVBoxLayout, QWidget
+import deepchem as dc
+import pandas as pd
+from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles, SDMolSupplier
 
+from PySide6.QtCore import Qt, Slot
+from PySide6.QtGui import QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
+
+from utils.functions import *
+from utils.load_models import *
 from widgets.Ui_batch_page_content import Ui_batchPageContent
 from widgets.collapsible_box import CollapsibleBox
+from widgets.msg_boxes import *
 
 
 class batchPageContent(QWidget, Ui_batchPageContent):
@@ -20,29 +28,73 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         super().__init__()
         self.setupUi(self)
 
-        # collapsible box
         self.batch_collapsible_box = CollapsibleBox()
         self.batch_collapsible_box.setObjectName('batch_collapsible_box')
         
         cbox_layout = QVBoxLayout()
         cbox_layout.setSpacing(10)
 
-        cyp_isoforms = ["All", "CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"]
-        self.cboxes = []
+        self.isoforms = cyp_isoforms
+        self.cboxes = {}
 
-        for isoform in cyp_isoforms:
+        for isoform in self.isoforms:
             cbox = QCheckBox(isoform)
-            cbox.setObjectName(f"single_cbox_{isoform.lower()}")
+            cbox.setObjectName(f"batch_cbox_{isoform.lower()}")
             cbox_layout.addWidget(cbox)
-            self.cboxes.append(cbox)
+            self.cboxes[isoform] = cbox
 
         self.batch_collapsible_box.set_content_layout(cbox_layout)
         self.batch_gridLayout.addWidget(self.batch_collapsible_box, 2, 0, 1, 1)
 
-        self.cboxes[0].stateChanged.connect(self.manage_cboxes_state)
+        self.cbox_all = self.cboxes['All']
+        self.cboxes_exclude_all = [
+            cbox for isoform, cbox in self.cboxes.items() if isoform != 'All'
+        ]
+
+        self.cbox_all.setChecked(True)
+        for cbox in self.cboxes_exclude_all:
+            cbox.setDisabled(True)
+
+        self.cbox_all.stateChanged.connect(self.manage_cboxes_state)
+        
+        self.batch_start_btn.setShortcut(Qt.Key.Key_Return)
 
         # upload file
-        self.batch_input_btn.clicked.connect(self.upload_file)
+        self.batch_browse_btn.clicked.connect(self.upload_file)
+        # 初始化状态
+        self.txt_data = None
+        self.sdf_data = None
+        self.file_type = None
+
+        self.batch_start_btn.clicked.connect(self.start_prediction)
+
+        self.predict_methods = {
+            'CYP2B6 Inhibition': self.predict_2b6_inhib,
+            'CYP2C8 Inhibition': self.predict_2c8_inhib
+        }
+
+        self.result_model = QStandardItemModel(self)
+        headers = ('Models', 'Probability', 'AD', 'SMILES')
+        self.result_model.setHorizontalHeaderLabels(headers)
+        self.result_model.setColumnCount(len(headers))
+        self.batch_table.setModel(self.result_model)
+
+        self.batch_table.setSortingEnabled(True)
+        self.batch_table.sortByColumn(1, Qt.SortOrder.DescendingOrder)
+        column_widths = [150, 100, 50]
+        for i, width in enumerate(column_widths):
+            self.batch_table.setColumnWidth(i, width)
+
+        self.batch_table.horizontalHeader().setStretchLastSection(True)
+        self.batch_table.verticalHeader().setSectionResizeMode(
+            QHeaderView.ResizeMode.Fixed
+        )
+        self.batch_table.verticalHeader().setDefaultAlignment(
+            Qt.AlignmentFlag.AlignCenter
+        )
+
+        self.batch_clear_btn.clicked.connect(self.clear_results)
+        self.batch_save_btn.clicked.connect(self.save_results)
 
     @Slot()
     def manage_cboxes_state(self):
@@ -50,11 +102,11 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         If "All" checkbox is checked, disable all other checkboxes
         Otherwise, enable all other checkboxes
         """
-        cbox_all_state = self.cboxes[0].isChecked()
-        for cbox in self.cboxes[1:]:
+        state_cbox_all = self.cbox_all.isChecked()
+        for cbox in self.cboxes_exclude_all:
             if cbox.isChecked():
                 cbox.setChecked(False)
-            cbox.setDisabled(cbox_all_state)
+            cbox.setDisabled(state_cbox_all)
 
     @Slot()
     def upload_file(self):
@@ -64,15 +116,185 @@ class batchPageContent(QWidget, Ui_batchPageContent):
 
         if file_path:
             file_name = os.path.basename(file_path)
-            self.batch_input_lineEdit.setText(f"{file_name}")
+            self.batch_input_lineEdit.setText(file_name)
 
             if file_name.endswith('.txt'):
                 with open(file_path, 'r') as f:
-                    txt_data = f.read()
-                txt_smiles_list = txt_data.split('\n')
-                txt_smiles_list_trim = [s.strip() for s in txt_smiles_list]
-             # txt_mol_list = [Chem.MolFromSmiles(s) for s in txt_smiles_list_trim]
-                print(txt_smiles_list_trim)
-            
-            if file_name.endswith('.sdf'):
-                pass
+                    self.txt_data = f.read()
+                self.file_type = 'txt'  # 添加一个新属性以分类处理
+            elif file_name.endswith('.sdf'):
+                with open(file_path, 'r') as f:
+                    self.sdf_data = f.read()
+                self.file_type = 'sdf'
+            else:
+                show_file_warning_msgbox(self, self.batch_input_lineEdit)
+                self.batch_input_lineEdit.clear()
+    
+    @Slot()
+    def start_prediction(self):
+        self.batch_start_btn.setEnabled(False)
+        self.batch_input_lineEdit.setEnabled(False)
+        self.batch_browse_btn.setEnabled(False)
+
+        selected_isoforms = [
+            isoform for isoform, cbox in self.cboxes.items() if cbox.isChecked()
+        ]
+
+        if not selected_isoforms:
+            show_select_warning_msgbox(self, self.batch_input_lineEdit)
+            self.end_prediction()
+        else:
+            if self.file_type == 'txt':
+                if not self.txt_data:
+                    # 上传的文件内容为空
+                    file_empty_warning_msgbox(self, self.batch_input_lineEdit)
+                    self.batch_input_lineEdit.clear()
+                    self.end_prediction()
+                else:
+                    txt_smiles_list = [s.strip() for s in self.txt_data.split('\n')]
+                    txt_mol_list = [MolFromSmiles(smiles) for smiles in txt_smiles_list]
+                    for index, mol in enumerate(txt_mol_list):
+                        if mol is None:
+                            self.if_mol_is_none(txt_smiles_list[index])
+                        else:
+                            smiles = txt_smiles_list[index]
+                            cano_smiles = MolToSmiles(mol)
+                            if 'All' in selected_isoforms:
+                                self.predict_all(smiles, cano_smiles, mol)
+                            else:
+                                for isoform in selected_isoforms:
+                                    if isoform in self.predict_methods.keys():
+                                        self.predict_methods[isoform](smiles, cano_smiles, mol)
+                    self.batch_input_lineEdit.clear()
+                    self.end_prediction()
+            elif self.file_type == 'sdf':
+                if not self.sdf_data:
+                    file_empty_warning_msgbox(self, self.batch_input_lineEdit)
+                    self.batch_input_lineEdit.clear()
+                    self.end_prediction()
+                else:
+                    suppl = SDMolSupplier()
+                    suppl.SetData(self.sdf_data)
+                    for index, mol in enumerate(suppl):
+                        if mol is None:
+                            self.if_mol_is_none('null')
+                        else:
+                            smiles = MolToSmiles(mol)
+                            cano_smiles = smiles
+                            if 'All' in selected_isoforms:
+                                self.predict_all(smiles, cano_smiles, mol)
+                            else:
+                                for isoform in selected_isoforms:
+                                    if isoform in self.predict_methods.keys():
+                                        self.predict_methods[isoform](smiles, cano_smiles, mol)
+                    self.batch_input_lineEdit.clear()
+                    self.end_prediction()
+            else:
+                # 没有上传文件，或上传文件的格式不对后输入框被清空
+                no_file_chosen_msgbox(self, self.batch_input_lineEdit)
+                self.end_prediction()
+    
+    def end_prediction(self):
+        self.txt_data = None
+        self.sdf_data = None
+        self.file_type = None
+        self.batch_start_btn.setEnabled(True)
+        self.batch_input_lineEdit.setEnabled(True)
+        self.batch_browse_btn.setEnabled(True)
+    
+    def predict_all(self, smiles, cano_smiles, mol):
+        for method in self.predict_methods.values():
+            method(smiles, cano_smiles, mol)
+
+    def predict_2b6_inhib(self, smiles, cano_smiles, mol=None):
+        fp_2b6 = MACCSkeys.GenMACCSKeys(mol)
+        x_2b6 = rdkit_numpy_convert(fp_2b6)
+
+        inhib_proba_2b6, x_2b6_scaled = predict_inhib_proba(
+            x_2b6, x_train['2b6'], models['2b6']
+        )
+        ad_2b6 = is_in_applicability_domain(
+            x_2b6_scaled[0], x_train_scaled['2b6'], thresholds['2b6']
+        )
+        final_inhib_proba_2b6 = is_in_training_set(
+            cano_smiles, inhib_proba_2b6, train_data['2b6']
+        )
+
+        self.update_results(
+            self.isoforms[2], final_inhib_proba_2b6, ad_2b6, smiles
+        )
+
+    def predict_2c8_inhib(self, smiles, cano_smiles, _mol=None):
+        featurizer = dc.feat.Mol2VecFingerprint()
+        x_2c8 = featurizer.featurize(smiles)
+
+        inhib_proba_2c8, x_2c8_scaled = predict_inhib_proba(
+            x_2c8, x_train['2c8'], models['2c8']
+        )
+        ad_2c8 = is_in_applicability_domain(
+            x_2c8_scaled[0], x_train_scaled['2c8'], thresholds['2c8']
+        )
+        final_inhib_proba_2c8 = is_in_training_set(
+            cano_smiles, inhib_proba_2c8, train_data['2c8']
+        )
+
+        self.update_results(
+            self.isoforms[3], final_inhib_proba_2c8, ad_2c8, smiles
+        )
+    
+    def if_mol_is_none(self, smiles):
+        model = 'Failed to generate rdkit.Chem.rdchem.Mol.'
+        proba = 'null'
+        ad_status = 'null'
+        self.update_results(model, proba, ad_status, smiles)
+
+    def update_results(self, model, proba, ad_status, smiles):
+        row = self.result_model.rowCount()
+
+        model_item = QStandardItem(model)
+        model_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 0, model_item)
+
+        proba_item = QStandardItem(proba)
+        proba_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 1, proba_item)
+
+        ad_item = QStandardItem(ad_status)
+        ad_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 2, ad_item)
+
+        smiles_item = QStandardItem(smiles)
+        smiles_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 3, smiles_item)
+    
+    @Slot()
+    def save_results(self):
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, caption='Save File', dir='results.csv', filter='CSV Files (*.csv);;All Files (*)'
+        )
+        
+        if file_path:
+            if not file_path.endswith('.csv'):
+                file_path += '.csv'
+
+        headers = [self.result_model.horizontalHeaderItem(i).text() 
+                   for i in range(self.result_model.columnCount())]
+
+        data = []
+        for row in range(self.result_model.rowCount()):
+            row_data = [str(row + 1)]
+            for column in range(self.result_model.columnCount()):
+                item = self.result_model.item(row, column)
+                if item and item.text():
+                    row_data.append(item.text())
+                else:
+                    row_data.append('')
+            data.append(row_data)
+        
+        df = pd.DataFrame(data, columns=['Index'] + headers)
+        
+        df.to_csv(file_path, index=False)
+
+    @Slot()
+    def clear_results(self):
+        self.result_model.removeRows(0, self.result_model.rowCount())

@@ -58,7 +58,7 @@
       <x>0</x>
       <y>0</y>
       <width>847</width>
-      <height>623</height>
+      <height>621</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -229,7 +229,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Please input a SMILES string for prediction:</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please input a &lt;span style=&quot; font-weight:700; color:#55aaff;&quot;&gt;SMILES&lt;/span&gt; string for prediction:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>

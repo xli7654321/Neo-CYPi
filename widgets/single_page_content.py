@@ -10,7 +10,7 @@ import deepchem as dc
 import pandas as pd
 from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles
 
-from PySide6.QtCore import Qt, Slot, QRect
+from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
 
@@ -26,7 +26,7 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         super().__init__()
         self.setupUi(self)
 
-        # add a collapsible box
+        # collapsible box
         self.single_collapsible_box = CollapsibleBox()
         self.single_collapsible_box.setObjectName('single_collapsible_box')
 
@@ -101,7 +101,6 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         )
 
         self.single_clear_btn.clicked.connect(self.clear_results)
-
         self.single_save_btn.clicked.connect(self.save_results)
 
     @Slot()
@@ -129,48 +128,91 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         self.single_input_lineEdit.setEnabled(False)
         self.single_example_btn.setEnabled(False)
 
-        self.smiles = self.single_input_lineEdit.text().strip()
-        if not self.smiles:
-            # 输入为空
-            show_input_warning_msgbox(self, self.single_input_lineEdit)
+        selected_isoforms = [
+            isoform for isoform, cbox in self.cboxes.items() if cbox.isChecked()
+        ]
+
+        if not selected_isoforms:
+            show_select_warning_msgbox(self, self.single_input_lineEdit)
             self.end_prediction()
         else:
-            # 输入不合法，无法生成 mol 对象
-            mol = MolFromSmiles(self.smiles)
-            if mol is None:
+            smiles = self.single_input_lineEdit.text().strip()
+            if not smiles:
+                # 输入为空
                 show_input_warning_msgbox(self, self.single_input_lineEdit)
                 self.end_prediction()
             else:
-                # canonicalize input SMILES string
-                cano_smiles = MolToSmiles(mol)
-
-                selected_isoforms = [
-                    isoform for isoform, cbox in self.cboxes.items() if cbox.isChecked()
-                ]
-
-                if not selected_isoforms:
-                    show_select_warning_msgbox(self, self.single_input_lineEdit)
-                    self.end_prediction()
-                elif 'All' in selected_isoforms:
-                    self.single_input_lineEdit.clear()
-                    self.predict_all(self.smiles, cano_smiles, mol)
+                # 输入不合法，无法生成 mol 对象
+                mol = MolFromSmiles(smiles)
+                if mol is None:
+                    show_input_warning_msgbox(self, self.single_input_lineEdit)
                     self.end_prediction()
                 else:
-                    self.single_input_lineEdit.clear()
-                    for isoform in selected_isoforms:
-                        if isoform in self.predict_methods.keys():
-                            self.predict_methods[isoform](self.smiles, cano_smiles, mol)
-                    self.end_prediction()
-
-    def predict_all(self, smiles, cano_smiles, mol):
-        for method in self.predict_methods.values():
-            method(smiles, cano_smiles, mol)
+                    # canonicalize input SMILES string
+                    cano_smiles = MolToSmiles(mol)
+                    if 'All' in selected_isoforms:
+                        self.predict_all(smiles, cano_smiles, mol)
+                        self.single_input_lineEdit.clear()
+                        self.end_prediction()
+                    else:
+                        for isoform in selected_isoforms:
+                            if isoform in self.predict_methods.keys():
+                                self.predict_methods[isoform](smiles, cano_smiles, mol)
+                        self.single_input_lineEdit.clear()
+                        self.end_prediction()
 
     def end_prediction(self):
         self.single_start_btn.setEnabled(True)
         self.single_input_lineEdit.setEnabled(True)
         self.single_example_btn.setEnabled(True)
     
+    def predict_all(self, smiles, cano_smiles, mol):
+        for method in self.predict_methods.values():
+            method(smiles, cano_smiles, mol)
+
+    # predict method for each isoform
+    def predict_2b6_inhib(self, smiles, cano_smiles, mol=None):
+        # 分子表征
+        fp_2b6 = MACCSkeys.GenMACCSKeys(mol)
+        x_2b6 = rdkit_numpy_convert(fp_2b6)
+
+        # 预测抑制概率
+        inhib_proba_2b6, x_2b6_scaled = predict_inhib_proba(
+            x_2b6, x_train['2b6'], models['2b6']
+        )
+
+        # 判断分子是否在预测模型的应用域内
+        ad_2b6 = is_in_applicability_domain(
+            x_2b6_scaled[0], x_train_scaled['2b6'], thresholds['2b6']
+        )
+
+        # 判断分子是否在预测模型的训练集中
+        final_inhib_proba_2b6 = is_in_training_set(
+            cano_smiles, inhib_proba_2b6, train_data['2b6']
+        )
+
+        self.update_results(
+            self.isoforms[2], final_inhib_proba_2b6, ad_2b6, smiles
+        )
+
+    def predict_2c8_inhib(self, smiles, cano_smiles, _mol=None):
+        featurizer = dc.feat.Mol2VecFingerprint()
+        x_2c8 = featurizer.featurize(smiles)
+
+        inhib_proba_2c8, x_2c8_scaled = predict_inhib_proba(
+            x_2c8, x_train['2c8'], models['2c8']
+        )
+        ad_2c8 = is_in_applicability_domain(
+            x_2c8_scaled[0], x_train_scaled['2c8'], thresholds['2c8']
+        )
+        final_inhib_proba_2c8 = is_in_training_set(
+            cano_smiles, inhib_proba_2c8, train_data['2c8']
+        )
+
+        self.update_results(
+            self.isoforms[3], final_inhib_proba_2c8, ad_2c8, smiles
+        )
+
     def update_results(self, model, proba, ad_status, smiles):
         row = self.result_model.rowCount()
 
@@ -190,9 +232,7 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         smiles_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         self.result_model.setItem(row, 3, smiles_item)
     
-    def clear_results(self):
-        self.result_model.removeRows(0, self.result_model.rowCount())
-
+    @Slot()
     def save_results(self):
         file_path, _ = QFileDialog.getSaveFileName(
             self, caption='Save File', dir='results.csv', filter='CSV Files (*.csv);;All Files (*)'
@@ -224,57 +264,6 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         # Save to CSV
         df.to_csv(file_path, index=False)
 
-    # predict method for each isoform
-    def predict_2b6_inhib(self, smiles, cano_smiles, mol=None):
-        if mol is None:
-            mol = MolFromSmiles(smiles)
-
-        # 分子表征
-        fp_2b6 = MACCSkeys.GenMACCSKeys(mol)
-        x_2b6 = rdkit_numpy_convert(fp_2b6)
-
-        # 预测抑制概率
-        inhib_proba_2b6, x_2b6_scaled = predict_inhib_proba(
-            x_2b6, x_train['2b6'], models['2b6']
-        )
-
-        # 判断分子是否在预测模型的应用域内
-        ad_2b6 = is_in_applicability_domain(
-            x_2b6_scaled[0], x_train_scaled['2b6'], thresholds['2b6']
-        )
-
-        # 判断分子是否在预测模型的训练集中
-        final_inhib_proba_2b6 = is_in_training_set(
-            cano_smiles, inhib_proba_2b6, train_data['2b6']
-        )
-
-        self.update_results(
-            self.isoforms[2], final_inhib_proba_2b6, ad_2b6, self.smiles
-        )
-
-        print(final_inhib_proba_2b6, ad_2b6)
-        return final_inhib_proba_2b6, ad_2b6
-
-
-    def predict_2c8_inhib(self, smiles, cano_smiles, _mol=None):
-        featurizer = dc.feat.Mol2VecFingerprint()
-        x_2c8 = featurizer.featurize(smiles)
-
-        inhib_proba_2c8, x_2c8_scaled = predict_inhib_proba(
-            x_2c8, x_train['2c8'], models['2c8']
-        )
-
-        ad_2c8 = is_in_applicability_domain(
-            x_2c8_scaled[0], x_train_scaled['2c8'], thresholds['2c8']
-        )
-
-        final_inhib_proba_2c8 = is_in_training_set(
-            cano_smiles, inhib_proba_2c8, train_data['2c8']
-        )
-
-        self.update_results(
-            self.isoforms[3], final_inhib_proba_2c8, ad_2c8, self.smiles
-        )
-
-        print(final_inhib_proba_2c8, ad_2c8)
-        return final_inhib_proba_2c8, ad_2c8
+    @Slot()
+    def clear_results(self):
+        self.result_model.removeRows(0, self.result_model.rowCount())

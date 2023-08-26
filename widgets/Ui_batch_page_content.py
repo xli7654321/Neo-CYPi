@@ -115,12 +115,12 @@ class Ui_batchPageContent(object):
 
         self.batch_gridLayout.addWidget(self.batch_input_label, 0, 0, 1, 1)
 
-        self.batch_input_btn = QPushButton(self.batch_scrollAreaWidgetContents)
-        self.batch_input_btn.setObjectName(u"batch_input_btn")
-        self.batch_input_btn.setMinimumSize(QSize(80, 0))
-        self.batch_input_btn.setFont(font)
+        self.batch_browse_btn = QPushButton(self.batch_scrollAreaWidgetContents)
+        self.batch_browse_btn.setObjectName(u"batch_browse_btn")
+        self.batch_browse_btn.setMinimumSize(QSize(80, 0))
+        self.batch_browse_btn.setFont(font)
 
-        self.batch_gridLayout.addWidget(self.batch_input_btn, 1, 1, 1, 1)
+        self.batch_gridLayout.addWidget(self.batch_browse_btn, 1, 1, 1, 1)
 
         self.batch_gridLayout.setRowMinimumHeight(0, 40)
 
@@ -164,17 +164,17 @@ class Ui_batchPageContent(object):
         self.verticalLayout_2.setSpacing(6)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 10, 0, 0)
-        self.batch_tableview = QTableView(self.batch_result_groupbox)
-        self.batch_tableview.setObjectName(u"batch_tableview")
+        self.batch_table = QTableView(self.batch_result_groupbox)
+        self.batch_table.setObjectName(u"batch_table")
         sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.batch_tableview.sizePolicy().hasHeightForWidth())
-        self.batch_tableview.setSizePolicy(sizePolicy2)
-        self.batch_tableview.setMinimumSize(QSize(0, 290))
-        self.batch_tableview.setFont(font)
+        sizePolicy2.setHeightForWidth(self.batch_table.sizePolicy().hasHeightForWidth())
+        self.batch_table.setSizePolicy(sizePolicy2)
+        self.batch_table.setMinimumSize(QSize(0, 290))
+        self.batch_table.setFont(font)
 
-        self.verticalLayout_2.addWidget(self.batch_tableview)
+        self.verticalLayout_2.addWidget(self.batch_table)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(5)
@@ -213,8 +213,8 @@ class Ui_batchPageContent(object):
         self.batch_icon.setText("")
         self.batch_label.setText(QCoreApplication.translate("batchPageContent", u"Batch-Molecule Prediction", None))
         self.batch_input_lineEdit.setPlaceholderText(QCoreApplication.translate("batchPageContent", u"No file chosen", None))
-        self.batch_input_label.setText(QCoreApplication.translate("batchPageContent", u"Please upload a file in TXT or SDF format for prediction:", None))
-        self.batch_input_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
+        self.batch_input_label.setText(QCoreApplication.translate("batchPageContent", u"<html><head/><body><p>Please upload a <span style=\" font-weight:700; color:#55aaff;\">txt</span> or <span style=\" font-weight:700; color:#55aaff;\">sdf</span> format file for prediction:</p></body></html>", None))
+        self.batch_browse_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
         self.batch_start_btn.setText(QCoreApplication.translate("batchPageContent", u"START PREDICTION", None))
         self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPageContent", u"Results", None))
         self.batch_save_btn.setText(QCoreApplication.translate("batchPageContent", u"Save Results", None))
