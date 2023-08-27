@@ -11,7 +11,6 @@ import os
 import deepchem as dc
 import pandas as pd
 from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles, SDMolSupplier
-
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
@@ -69,23 +68,47 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         self.batch_start_btn.clicked.connect(self.start_prediction)
 
         self.predict_methods = {
+            'CYP1A2 Inhibition': self.predict_1a2_inhib,
             'CYP2B6 Inhibition': self.predict_2b6_inhib,
-            'CYP2C8 Inhibition': self.predict_2c8_inhib
+            'CYP2C8 Inhibition': self.predict_2c8_inhib,
+            'CYP2C9 Inhibition': self.predict_2c9_inhib,
+            'CYP2C19 Inhibition': self.predict_2c19_inhib,
+            'CYP2D6 Inhibition': self.predict_2d6_inhib,
+            'CYP3A4 Inhibition': self.predict_3a4_inhib
+        }
+
+        self.isoform_to_column = {
+            'CYP1A2 Inhibition': 1,
+            'CYP2B6 Inhibition': 3,
+            'CYP2C8 Inhibition': 5,
+            'CYP2C9 Inhibition': 7,
+            'CYP2C19 Inhibition': 9,
+            'CYP2D6 Inhibition': 11,
+            'CYP3A4 Inhibition': 13
         }
 
         self.result_model = QStandardItemModel(self)
-        headers = ('Models', 'Probability', 'AD', 'SMILES')
+        headers = (
+            'SMILES',
+            'CYP1A2\nInhibition', 'CYP1A2\nAD',
+            'CYP2B6\nInhibition', 'CYP2B6\nAD',
+            'CYP2C8\nInhibition', 'CYP2C8\nAD',
+            'CYP2C9\nInhibition', 'CYP2C9\nAD',
+            'CYP2C19\nInhibition', 'CYP2C19\nAD',
+            'CYP2D6\nInhibition', 'CYP2D6\nAD',
+            'CYP3A4\nInhibition', 'CYP3A4\nAD'
+        )
         self.result_model.setHorizontalHeaderLabels(headers)
         self.result_model.setColumnCount(len(headers))
         self.batch_table.setModel(self.result_model)
 
         self.batch_table.setSortingEnabled(True)
-        self.batch_table.sortByColumn(1, Qt.SortOrder.DescendingOrder)
-        column_widths = [150, 100, 50]
+        self.batch_table.setAlternatingRowColors(True)
+
+        column_widths = [385, 110, 80, 110, 80, 110, 80, 110, 80, 110, 80, 110, 80, 110, 80]
         for i, width in enumerate(column_widths):
             self.batch_table.setColumnWidth(i, width)
 
-        self.batch_table.horizontalHeader().setStretchLastSection(True)
         self.batch_table.verticalHeader().setSectionResizeMode(
             QHeaderView.ResizeMode.Fixed
         )
@@ -136,6 +159,8 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         self.batch_input_lineEdit.setEnabled(False)
         self.batch_browse_btn.setEnabled(False)
 
+        self.results_dict = {}
+
         selected_isoforms = [
             isoform for isoform, cbox in self.cboxes.items() if cbox.isChecked()
         ]
@@ -151,20 +176,23 @@ class batchPageContent(QWidget, Ui_batchPageContent):
                     self.batch_input_lineEdit.clear()
                     self.end_prediction()
                 else:
-                    txt_smiles_list = [s.strip() for s in self.txt_data.split('\n')]
+                    txt_smiles_list = [s.strip() for s in self.txt_data.split('\n') if s.strip()]
                     txt_mol_list = [MolFromSmiles(smiles) for smiles in txt_smiles_list]
                     for index, mol in enumerate(txt_mol_list):
                         if mol is None:
-                            self.if_mol_is_none(txt_smiles_list[index])
+                            smiles = txt_smiles_list[index]
+                            self.if_mol_is_none(smiles, selected_isoforms, self.results_dict)
                         else:
                             smiles = txt_smiles_list[index]
                             cano_smiles = MolToSmiles(mol)
                             if 'All' in selected_isoforms:
-                                self.predict_all(smiles, cano_smiles, mol)
+                                selected_isoforms = self.isoforms[1:]
+                                self.predict_all(smiles, cano_smiles, mol, self.results_dict)
                             else:
                                 for isoform in selected_isoforms:
                                     if isoform in self.predict_methods.keys():
-                                        self.predict_methods[isoform](smiles, cano_smiles, mol)
+                                        self.predict_methods[isoform](smiles, cano_smiles, mol, self.results_dict)
+                        self.update_results(smiles, self.results_dict[smiles])
                     self.batch_input_lineEdit.clear()
                     self.end_prediction()
             elif self.file_type == 'sdf':
@@ -177,16 +205,19 @@ class batchPageContent(QWidget, Ui_batchPageContent):
                     suppl.SetData(self.sdf_data)
                     for index, mol in enumerate(suppl):
                         if mol is None:
-                            self.if_mol_is_none('null')
+                            smiles = 'null'
+                            self.if_mol_is_none(smiles, selected_isoforms, self.results_dict)
                         else:
                             smiles = MolToSmiles(mol)
                             cano_smiles = smiles
                             if 'All' in selected_isoforms:
-                                self.predict_all(smiles, cano_smiles, mol)
+                                selected_isoforms = self.isoforms[1:]
+                                self.predict_all(smiles, cano_smiles, mol, self.results_dict)
                             else:
                                 for isoform in selected_isoforms:
                                     if isoform in self.predict_methods.keys():
-                                        self.predict_methods[isoform](smiles, cano_smiles, mol)
+                                        self.predict_methods[isoform](smiles, cano_smiles, mol, self.results_dict)
+                        self.update_results(smiles, self.results_dict[smiles])
                     self.batch_input_lineEdit.clear()
                     self.end_prediction()
             else:
@@ -198,15 +229,27 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         self.txt_data = None
         self.sdf_data = None
         self.file_type = None
+        self.results_dict = {} # 重置
         self.batch_start_btn.setEnabled(True)
         self.batch_input_lineEdit.setEnabled(True)
         self.batch_browse_btn.setEnabled(True)
     
-    def predict_all(self, smiles, cano_smiles, mol):
+    def predict_all(self, smiles, cano_smiles, mol, results_dict):
         for method in self.predict_methods.values():
-            method(smiles, cano_smiles, mol)
+            method(smiles, cano_smiles, mol, results_dict)
 
-    def predict_2b6_inhib(self, smiles, cano_smiles, mol=None):
+    def if_mol_is_none(self, smiles, selected_isoforms, results_dict):
+        results_of_none = {}
+        inhib_proba = 'null'
+        ad_status = 'null'
+        for isoform in selected_isoforms:
+            results_of_none[isoform] = (inhib_proba, ad_status)
+        results_dict[smiles] = results_of_none
+
+    def predict_1a2_inhib(self, smiles, cano_smiles, mol=None, results_dict=None):
+        pass
+
+    def predict_2b6_inhib(self, smiles, cano_smiles, mol=None, results_dict=None):
         fp_2b6 = MACCSkeys.GenMACCSKeys(mol)
         x_2b6 = rdkit_numpy_convert(fp_2b6)
 
@@ -220,11 +263,9 @@ class batchPageContent(QWidget, Ui_batchPageContent):
             cano_smiles, inhib_proba_2b6, train_data['2b6']
         )
 
-        self.update_results(
-            self.isoforms[2], final_inhib_proba_2b6, ad_2b6, smiles
-        )
+        results_dict.setdefault(smiles, {})[self.isoforms[2]] = (final_inhib_proba_2b6, ad_2b6)
 
-    def predict_2c8_inhib(self, smiles, cano_smiles, _mol=None):
+    def predict_2c8_inhib(self, smiles, cano_smiles, _mol=None, results_dict=None):
         featurizer = dc.feat.Mol2VecFingerprint()
         x_2c8 = featurizer.featurize(smiles)
 
@@ -238,34 +279,37 @@ class batchPageContent(QWidget, Ui_batchPageContent):
             cano_smiles, inhib_proba_2c8, train_data['2c8']
         )
 
-        self.update_results(
-            self.isoforms[3], final_inhib_proba_2c8, ad_2c8, smiles
-        )
-    
-    def if_mol_is_none(self, smiles):
-        model = 'Failed to generate rdkit.Chem.rdchem.Mol.'
-        proba = 'null'
-        ad_status = 'null'
-        self.update_results(model, proba, ad_status, smiles)
+        results_dict.setdefault(smiles, {})[self.isoforms[3]] = (final_inhib_proba_2c8, ad_2c8)
 
-    def update_results(self, model, proba, ad_status, smiles):
+    def predict_2c9_inhib(self, smiles, cano_smiles, mol=None, results_dict=None):
+        pass
+
+    def predict_2c19_inhib(self, smiles, cano_smiles, mol=None, results_dict=None):
+        pass
+
+    def predict_2d6_inhib(self, smiles, cano_smiles, mol=None, results_dict=None):
+        pass
+
+    def predict_3a4_inhib(self, smiles, cano_smiles, mol=None, results_dict=None):
+        pass
+
+    def update_results(self, smiles, results_of_smiles):
         row = self.result_model.rowCount()
-
-        model_item = QStandardItem(model)
-        model_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 0, model_item)
-
-        proba_item = QStandardItem(proba)
-        proba_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 1, proba_item)
-
-        ad_item = QStandardItem(ad_status)
-        ad_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 2, ad_item)
 
         smiles_item = QStandardItem(smiles)
         smiles_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 3, smiles_item)
+        self.result_model.setItem(row, 0, smiles_item)
+
+        for isoform, (inhib_proba, ad_status) in results_of_smiles.items():
+            col_index = self.isoform_to_column[isoform]
+
+            inhib_proba_item = QStandardItem(inhib_proba)
+            inhib_proba_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.result_model.setItem(row, col_index, inhib_proba_item)
+
+            ad_item = QStandardItem(ad_status)
+            ad_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.result_model.setItem(row, col_index + 1, ad_item)
     
     @Slot()
     def save_results(self):

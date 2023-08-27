@@ -9,7 +9,6 @@ Cause I'm the one who can make changes, who make differences.
 import deepchem as dc
 import pandas as pd
 from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles
-
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
@@ -70,13 +69,18 @@ class singlePageContent(QWidget, Ui_singlePageContent):
 
         # init predict methods
         self.predict_methods = {
+            'CYP1A2 Inhibition': self.predict_1a2_inhib,
             'CYP2B6 Inhibition': self.predict_2b6_inhib,
-            'CYP2C8 Inhibition': self.predict_2c8_inhib
+            'CYP2C8 Inhibition': self.predict_2c8_inhib,
+            'CYP2C9 Inhibition': self.predict_2c9_inhib,
+            'CYP2C19 Inhibition': self.predict_2c19_inhib,
+            'CYP2D6 Inhibition': self.predict_2d6_inhib,
+            'CYP3A4 Inhibition': self.predict_3a4_inhib
         }
 
         # tableview model
         self.result_model = QStandardItemModel(self)
-        headers = ('Models', 'Probability', 'AD', 'SMILES')
+        headers = ('SMILES', 'Prediction\nModel', 'Inhibition\nProbability', 'Applicability\nDomain')
         self.result_model.setHorizontalHeaderLabels(headers)
         self.result_model.setColumnCount(len(headers))
         self.single_table.setModel(self.result_model)
@@ -84,13 +88,18 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         # tableview 整体
         # font set by qss
         self.single_table.setSortingEnabled(True)
-        self.single_table.sortByColumn(1, Qt.SortOrder.DescendingOrder)
-        column_widths = [150, 100, 50]
-        for i, width in enumerate(column_widths):
+        self.single_table.sortByColumn(2, Qt.SortOrder.DescendingOrder)
+        self.single_table.setAlternatingRowColors(True)
+        
+        # 后三列固定宽度
+        column_widths = [160, 110, 110]
+        for i, width in enumerate(column_widths, start=1):
             self.single_table.setColumnWidth(i, width)
 
         # tableview 水平标题
-        self.single_table.horizontalHeader().setStretchLastSection(True)
+        self.single_table.horizontalHeader().setSectionResizeMode(
+            0, QHeaderView.ResizeMode.Stretch
+        )
 
         # tableview 垂直标题
         self.single_table.verticalHeader().setSectionResizeMode(
@@ -170,6 +179,9 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         for method in self.predict_methods.values():
             method(smiles, cano_smiles, mol)
 
+    def predict_1a2_inhib(self, smiles, cano_smiles, mol=None):
+        pass
+    
     # predict method for each isoform
     def predict_2b6_inhib(self, smiles, cano_smiles, mol=None):
         # 分子表征
@@ -192,7 +204,7 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         )
 
         self.update_results(
-            self.isoforms[2], final_inhib_proba_2b6, ad_2b6, smiles
+            smiles, self.isoforms[2], final_inhib_proba_2b6, ad_2b6
         )
 
     def predict_2c8_inhib(self, smiles, cano_smiles, _mol=None):
@@ -210,27 +222,39 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         )
 
         self.update_results(
-            self.isoforms[3], final_inhib_proba_2c8, ad_2c8, smiles
+            smiles, self.isoforms[3], final_inhib_proba_2c8, ad_2c8
         )
 
-    def update_results(self, model, proba, ad_status, smiles):
+    def predict_2c9_inhib(self, smiles, cano_smiles, mol=None):
+        pass
+
+    def predict_2c19_inhib(self, smiles, cano_smiles, mol=None):
+        pass
+
+    def predict_2d6_inhib(self, smiles, cano_smiles, mol=None):
+        pass
+
+    def predict_3a4_inhib(self, smiles, cano_smiles, mol=None):
+        pass
+
+    def update_results(self, smiles, model, proba, ad_status):
         row = self.result_model.rowCount()
-
-        model_item = QStandardItem(model)
-        model_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 0, model_item)
-
-        proba_item = QStandardItem(proba)
-        proba_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 1, proba_item)
-
-        ad_item = QStandardItem(ad_status)
-        ad_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 2, ad_item)
 
         smiles_item = QStandardItem(smiles)
         smiles_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.result_model.setItem(row, 3, smiles_item)
+        self.result_model.setItem(row, 0, smiles_item)
+        
+        model_item = QStandardItem(model)
+        model_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 1, model_item)
+
+        proba_item = QStandardItem(proba)
+        proba_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 2, proba_item)
+
+        ad_item = QStandardItem(ad_status)
+        ad_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.result_model.setItem(row, 3, ad_item)
     
     @Slot()
     def save_results(self):

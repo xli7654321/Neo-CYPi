@@ -16,10 +16,19 @@
     font-size: 11pt;
 }
 
+QTableView {
+    border: 1px solid #313a46;
+    gridline-color: lightgray;
+    /* gridline-color: lightslategray; */
+}
+
 QHeaderView {
     font-family: 'Segoe UI';
     font-size: 11pt;
 }
+
+/* QHeaderView::section:horizontal {
+} */
 
 /* style for sidebar widget */
 
@@ -65,10 +74,6 @@ QHeaderView {
     background-color: white;
 }
 
-#single_table {
-    border: 1px solid lightskyblue;
-}
-
 /* style for batch page content widget */
 
 #batch_label {
@@ -81,10 +86,6 @@ QHeaderView {
 
 #batch_scrollAreaWidgetContents {
     background-color: white;
-}
-
-#batch_table {
-    border: 1px solid lightskyblue;
 }
 
 /* style for about page content widget */

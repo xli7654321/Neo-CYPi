@@ -68,7 +68,6 @@ class CollapsibleBox(QWidget):
             QAbstractAnimation.Direction.Forward if checked else QAbstractAnimation.Direction.Backward
         )
         self.toggle_animation.start()
-        
 
     def set_content_layout(self, layout):
         self.toggle_btn_content.setLayout(layout)
