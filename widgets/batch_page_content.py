@@ -11,21 +11,39 @@ import os
 import deepchem as dc
 import pandas as pd
 from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles, SDMolSupplier
-from PySide6.QtCore import Qt, Slot
-from PySide6.QtGui import QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Qt, Slot, Signal
+from PySide6.QtGui import QFont, QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QMessageBox, QVBoxLayout, QWidget
 
 from utils.functions import *
 from utils.load_models import *
 from widgets.Ui_batch_page_content import Ui_batchPageContent
 from widgets.collapsible_box import CollapsibleBox
-from widgets.msg_boxes import *
+
+
+class predictionSignals(QObject):
+    finished = Signal()
+
+
+class predictionWorker(QRunnable):
+    def __init__(self, function):
+        super().__init__()
+        self.function = function
+        self.signals = predictionSignals()
+
+    def run(self):
+        self.function()
+        self.signals.finished.emit()
 
 
 class batchPageContent(QWidget, Ui_batchPageContent):
+    show_warning_msgbox_signal = Signal(str, str, str, QWidget)
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
+        self.show_warning_msgbox_signal.connect(self.show_warning_msgbox)
 
         self.batch_collapsible_box = CollapsibleBox()
         self.batch_collapsible_box.setObjectName('batch_collapsible_box')
@@ -150,7 +168,11 @@ class batchPageContent(QWidget, Ui_batchPageContent):
                     self.sdf_data = f.read()
                 self.file_type = 'sdf'
             else:
-                show_file_warning_msgbox(self, self.batch_input_lineEdit)
+                self.show_warning_msgbox_signal.emit(
+                    'Invalid File Type!', 
+                    'Please upload a valid txt or sdf format file for prediction.', 
+                    'File Type Error', self.batch_input_lineEdit
+                )
                 self.batch_input_lineEdit.clear()
     
     @Slot()
@@ -159,6 +181,12 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         self.batch_input_lineEdit.setEnabled(False)
         self.batch_browse_btn.setEnabled(False)
 
+        worker = predictionWorker(self._run_prediction)
+        worker.signals.finished.connect(self.end_prediction)
+        QThreadPool.globalInstance().setMaxThreadCount(8)
+        QThreadPool.globalInstance().start(worker)
+
+    def _run_prediction(self):
         self.results_dict = {}
 
         selected_isoforms = [
@@ -166,15 +194,23 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         ]
 
         if not selected_isoforms:
-            show_select_warning_msgbox(self, self.batch_input_lineEdit)
-            self.end_prediction()
+            self.show_warning_msgbox_signal.emit(
+                'No Model Selected!', 
+                'Please select at least one model to start prediction.', 
+                'Select Error', self.batch_input_lineEdit
+            )
+            return
         else:
             if self.file_type == 'txt':
                 if not self.txt_data:
                     # 上传的文件内容为空
-                    file_empty_warning_msgbox(self, self.batch_input_lineEdit)
+                    self.show_warning_msgbox_signal.emit(
+                        'The Uploaded File is Empty!', 
+                        'Please check the contents of your file and upload again.', 
+                        'File Content Error', self.batch_input_lineEdit
+                    )
                     self.batch_input_lineEdit.clear()
-                    self.end_prediction()
+                    return
                 else:
                     txt_smiles_list = [s.strip() for s in self.txt_data.split('\n') if s.strip()]
                     txt_mol_list = [MolFromSmiles(smiles) for smiles in txt_smiles_list]
@@ -194,12 +230,16 @@ class batchPageContent(QWidget, Ui_batchPageContent):
                                         self.predict_methods[isoform](smiles, cano_smiles, mol, self.results_dict)
                         self.update_results(smiles, self.results_dict[smiles])
                     self.batch_input_lineEdit.clear()
-                    self.end_prediction()
+                    return
             elif self.file_type == 'sdf':
                 if not self.sdf_data:
-                    file_empty_warning_msgbox(self, self.batch_input_lineEdit)
+                    self.show_warning_msgbox_signal.emit(
+                        'The Uploaded File is Empty!', 
+                        'Please check the contents of your file and upload again.', 
+                        'File Content Error', self.batch_input_lineEdit
+                    )
                     self.batch_input_lineEdit.clear()
-                    self.end_prediction()
+                    return
                 else:
                     suppl = SDMolSupplier()
                     suppl.SetData(self.sdf_data)
@@ -219,12 +259,17 @@ class batchPageContent(QWidget, Ui_batchPageContent):
                                         self.predict_methods[isoform](smiles, cano_smiles, mol, self.results_dict)
                         self.update_results(smiles, self.results_dict[smiles])
                     self.batch_input_lineEdit.clear()
-                    self.end_prediction()
+                    return
             else:
                 # 没有上传文件，或上传文件的格式不对后输入框被清空
-                no_file_chosen_msgbox(self, self.batch_input_lineEdit)
-                self.end_prediction()
+                self.show_warning_msgbox_signal.emit(
+                    'No File Chosen!', 
+                    'Please choose a file to upload before prediction.', 
+                    'File Error', self.batch_input_lineEdit
+                )
+                return
     
+    @Slot()
     def end_prediction(self):
         self.txt_data = None
         self.sdf_data = None
@@ -342,3 +387,19 @@ class batchPageContent(QWidget, Ui_batchPageContent):
     @Slot()
     def clear_results(self):
         self.result_model.removeRows(0, self.result_model.rowCount())
+
+    @Slot(str, str, str, QWidget)
+    def show_warning_msgbox(self, text, informative_text, title, input_widget):
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Icon.Warning)
+        msg_box.setText(text)
+        msg_box.setInformativeText(informative_text)
+        msg_box.setWindowTitle(title)
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+        msg_box.setFont(QFont('Segoe UI', 11))
+    
+        return_value = msg_box.exec()
+    
+        if return_value == QMessageBox.StandardButton.Ok:
+            input_widget.setFocus()
+            return

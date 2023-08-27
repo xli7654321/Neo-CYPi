@@ -6,8 +6,7 @@
 Just waiting for good things to happen won't change anything,
 Cause I'm the one who can make changes, who make differences.
 """
-from PySide6.QtCore import Slot
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Slot
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
 
 from widgets.Ui_main import Ui_MainWindow

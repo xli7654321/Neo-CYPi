@@ -9,21 +9,39 @@ Cause I'm the one who can make changes, who make differences.
 import deepchem as dc
 import pandas as pd
 from rdkit.Chem import MACCSkeys, MolFromSmiles, MolToSmiles
-from PySide6.QtCore import Qt, Slot
-from PySide6.QtGui import QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QVBoxLayout, QWidget
+from PySide6.QtCore import QObject, QRunnable, QThreadPool, Qt, Slot, Signal
+from PySide6.QtGui import QFont, QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import QCheckBox, QFileDialog, QHeaderView, QMessageBox, QVBoxLayout, QWidget
 
 from utils.functions import *
 from utils.load_models import *
 from widgets.Ui_single_page_content import Ui_singlePageContent
 from widgets.collapsible_box import CollapsibleBox
-from widgets.msg_boxes import *
+
+
+class predictionSignals(QObject):
+    finished = Signal()
+
+
+class predictionWorker(QRunnable):
+    def __init__(self, function):
+        super().__init__()
+        self.function = function
+        self.signals = predictionSignals()
+
+    def run(self):
+        self.function()
+        self.signals.finished.emit()
 
 
 class singlePageContent(QWidget, Ui_singlePageContent):
+    show_warning_msgbox_signal = Signal(str, str, str, QWidget)
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
+        self.show_warning_msgbox_signal.connect(self.show_warning_msgbox)
 
         # collapsible box
         self.single_collapsible_box = CollapsibleBox()
@@ -137,39 +155,55 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         self.single_input_lineEdit.setEnabled(False)
         self.single_example_btn.setEnabled(False)
 
+        worker = predictionWorker(self._run_prediction)
+        worker.signals.finished.connect(self.end_prediction)
+        QThreadPool.globalInstance().setMaxThreadCount(8) # 设置线程池最大线程数
+        QThreadPool.globalInstance().start(worker)  # 获取全局线程池的实例并启动线程
+
+    def _run_prediction(self):
         selected_isoforms = [
             isoform for isoform, cbox in self.cboxes.items() if cbox.isChecked()
         ]
-
         if not selected_isoforms:
-            show_select_warning_msgbox(self, self.single_input_lineEdit)
-            self.end_prediction()
+            self.show_warning_msgbox_signal.emit(
+                'No Model Selected!', 
+                'Please select at least one model to start prediction.', 
+                'Select Error', self.single_input_lineEdit
+            )
+            return
         else:
             smiles = self.single_input_lineEdit.text().strip()
             if not smiles:
                 # 输入为空
-                show_input_warning_msgbox(self, self.single_input_lineEdit)
-                self.end_prediction()
+                self.show_warning_msgbox_signal.emit(
+                    'Please input a valid SMILES string!', None, 
+                    'Input Error', self.single_input_lineEdit
+                )
+                return
             else:
                 # 输入不合法，无法生成 mol 对象
                 mol = MolFromSmiles(smiles)
                 if mol is None:
-                    show_input_warning_msgbox(self, self.single_input_lineEdit)
-                    self.end_prediction()
+                    self.show_warning_msgbox_signal.emit(
+                        'Please input a valid SMILES string!', None, 
+                        'Input Error', self.single_input_lineEdit
+                    )
+                    return
                 else:
                     # canonicalize input SMILES string
                     cano_smiles = MolToSmiles(mol)
                     if 'All' in selected_isoforms:
                         self.predict_all(smiles, cano_smiles, mol)
                         self.single_input_lineEdit.clear()
-                        self.end_prediction()
+                        return
                     else:
                         for isoform in selected_isoforms:
                             if isoform in self.predict_methods.keys():
                                 self.predict_methods[isoform](smiles, cano_smiles, mol)
                         self.single_input_lineEdit.clear()
-                        self.end_prediction()
+                        return
 
+    @Slot()
     def end_prediction(self):
         self.single_start_btn.setEnabled(True)
         self.single_input_lineEdit.setEnabled(True)
@@ -291,3 +325,23 @@ class singlePageContent(QWidget, Ui_singlePageContent):
     @Slot()
     def clear_results(self):
         self.result_model.removeRows(0, self.result_model.rowCount())
+
+    @Slot(str, str, str, QWidget)
+    def show_warning_msgbox(self, text, informative_text, title, input_widget):
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Icon.Warning)
+        msg_box.setText(text)
+        msg_box.setInformativeText(informative_text)
+        msg_box.setWindowTitle(title)
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+        msg_box.setFont(QFont('Segoe UI', 11))
+    
+        # 显示 QMessageBox 并等待用户点击按钮，会返回一个整数值，该值对应于用户点击的按钮
+        # 这个值可以用于进一步决定程序应如何响应
+        return_value = msg_box.exec()
+    
+        if return_value == QMessageBox.StandardButton.Ok:
+            # 用户点击确定后，将焦点重新定位到输入框
+            input_widget.setFocus()
+            # return 用于在显示警告并处理用户的响应后结束此方法或函数的执行
+            return
