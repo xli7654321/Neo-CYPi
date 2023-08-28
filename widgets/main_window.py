@@ -6,12 +6,14 @@
 Just waiting for good things to happen won't change anything,
 Cause I'm the one who can make changes, who make differences.
 """
-from PySide6.QtCore import Qt, Slot
+from PySide6.QtCore import Slot
+from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
 
 from widgets.Ui_main import Ui_MainWindow
 from widgets.batch_page_content import batchPageContent
 from widgets.single_page_content import singlePageContent
+from widgets.spinner import WaitingSpinner
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -40,8 +42,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.batch_btn.toggled.connect(self.on_batch_btn_toggled)
         self.about_btn.toggled.connect(self.on_about_btn_toggled)
 
-        self.statusbar_active = False
-        self.statusbar_widget.mousePressEvent = self.toggle_statusbar_style
+        # statusbar loading spinner
+        self.loading_spinner = WaitingSpinner(
+            self.loading_widget,
+            roundness=100.00,
+            opacity=0.00,
+            fade=75.00,
+            lines=7,
+            line_length=7,
+            line_width=2,
+            radius=3,
+            speed=1.25,
+            color=QColor(0, 85, 255)
+        )
+
+        self.running_prediction_counts = 0
+
+        self.single_page_content.start_loading.connect(self.start_loading)
+        self.single_page_content.finish_loading.connect(self.finish_loading)
+        self.batch_page_content.start_loading.connect(self.start_loading)
+        self.batch_page_content.finish_loading.connect(self.finish_loading)
 
     def add_home_page_content(self):
         pass
@@ -83,12 +103,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if checked:
             self.stackedWidget.setCurrentIndex(3)
 
-    def toggle_statusbar_style(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.statusbar_active = not self.statusbar_active
-            if self.statusbar_active:
-                self.statusbar_widget.setStyleSheet('border-top: 1px solid coral;')
-            else:
-                self.statusbar_widget.setStyleSheet('border-top: 1px solid lightslategray;')
-        # 重写 mousePressEvent 后确保原有的事件不会被覆盖
-        super().mousePressEvent(event)
+    @Slot()
+    def start_loading(self):
+        self.running_prediction_counts += 1
+        self.loading_spinner.start()
+        self.status_label.setText('Running Prediction....')
+
+    @Slot()
+    def finish_loading(self):
+        self.running_prediction_counts -= 1
+        if self.running_prediction_counts == 0:
+            self.loading_spinner.stop()
+            self.status_label.setText('Waiting for Prediction')

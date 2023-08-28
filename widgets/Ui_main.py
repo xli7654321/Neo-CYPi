@@ -148,10 +148,37 @@ class Ui_MainWindow(object):
         self.statusbar_widget.setObjectName(u"statusbar_widget")
         self.statusbar_widget.setMinimumSize(QSize(864, 25))
         self.statusbar_widget.setMaximumSize(QSize(864, 25))
-        font3 = QFont()
-        font3.setFamilies([u"Segoe UI"])
-        font3.setPointSize(11)
-        self.statusbar_widget.setFont(font3)
+        self.statusbar_widget.setFont(font)
+        self.horizontalLayout = QHBoxLayout(self.statusbar_widget)
+        self.horizontalLayout.setSpacing(3)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 1, 15, 0)
+        self.horizontalSpacer = QSpacerItem(690, 1, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
+        self.loading_widget = QWidget(self.statusbar_widget)
+        self.loading_widget.setObjectName(u"loading_widget")
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.loading_widget.sizePolicy().hasHeightForWidth())
+        self.loading_widget.setSizePolicy(sizePolicy)
+        self.loading_widget.setMinimumSize(QSize(20, 20))
+        self.loading_widget.setMaximumSize(QSize(20, 20))
+
+        self.horizontalLayout.addWidget(self.loading_widget)
+
+        self.status_label = QLabel(self.statusbar_widget)
+        self.status_label.setObjectName(u"status_label")
+        sizePolicy.setHeightForWidth(self.status_label.sizePolicy().hasHeightForWidth())
+        self.status_label.setSizePolicy(sizePolicy)
+        self.status_label.setMinimumSize(QSize(130, 24))
+        self.status_label.setMaximumSize(QSize(130, 24))
+        self.status_label.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.status_label)
+
 
         self.gridLayout.addWidget(self.statusbar_widget, 1, 1, 1, 1)
 
@@ -167,11 +194,11 @@ class Ui_MainWindow(object):
         self.logo_label.setObjectName(u"logo_label")
         self.logo_label.setMinimumSize(QSize(136, 60))
         self.logo_label.setMaximumSize(QSize(16777215, 16777215))
-        font4 = QFont()
-        font4.setFamilies([u"Segoe UI"])
-        font4.setPointSize(16)
-        font4.setBold(False)
-        self.logo_label.setFont(font4)
+        font3 = QFont()
+        font3.setFamilies([u"Segoe UI"])
+        font3.setPointSize(16)
+        font3.setBold(False)
+        self.logo_label.setFont(font3)
         self.logo_label.setScaledContents(False)
         self.logo_label.setAlignment(Qt.AlignCenter)
 
@@ -255,6 +282,7 @@ class Ui_MainWindow(object):
         self.batch_label.setText(QCoreApplication.translate("MainWindow", u"Batch Prediction", None))
         self.batch_icon_2.setText("")
         self.about_label.setText(QCoreApplication.translate("MainWindow", u"About", None))
+        self.status_label.setText(QCoreApplication.translate("MainWindow", u"Waiting for Prediction", None))
         self.logo_label.setText(QCoreApplication.translate("MainWindow", u"Uni-CYPred", None))
         self.home_btn.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.single_btn.setText(QCoreApplication.translate("MainWindow", u"Single-Molecule\n"

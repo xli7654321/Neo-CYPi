@@ -38,6 +38,8 @@ class predictionWorker(QRunnable):
 
 class batchPageContent(QWidget, Ui_batchPageContent):
     show_warning_msgbox_signal = Signal(str, str, str, QWidget)
+    start_loading = Signal()
+    finish_loading = Signal()
 
     def __init__(self):
         super().__init__()
@@ -181,6 +183,8 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         self.batch_input_lineEdit.setEnabled(False)
         self.batch_browse_btn.setEnabled(False)
 
+        self.start_loading.emit()
+
         worker = predictionWorker(self._run_prediction)
         worker.signals.finished.connect(self.end_prediction)
         QThreadPool.globalInstance().setMaxThreadCount(8)
@@ -275,9 +279,12 @@ class batchPageContent(QWidget, Ui_batchPageContent):
         self.sdf_data = None
         self.file_type = None
         self.results_dict = {} # 重置
+
         self.batch_start_btn.setEnabled(True)
         self.batch_input_lineEdit.setEnabled(True)
         self.batch_browse_btn.setEnabled(True)
+        
+        self.finish_loading.emit()
     
     def predict_all(self, smiles, cano_smiles, mol, results_dict):
         for method in self.predict_methods.values():

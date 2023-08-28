@@ -36,6 +36,8 @@ class predictionWorker(QRunnable):
 
 class singlePageContent(QWidget, Ui_singlePageContent):
     show_warning_msgbox_signal = Signal(str, str, str, QWidget)
+    start_loading = Signal()
+    finish_loading = Signal()
 
     def __init__(self):
         super().__init__()
@@ -155,6 +157,8 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         self.single_input_lineEdit.setEnabled(False)
         self.single_example_btn.setEnabled(False)
 
+        self.start_loading.emit()
+
         worker = predictionWorker(self._run_prediction)
         worker.signals.finished.connect(self.end_prediction)
         QThreadPool.globalInstance().setMaxThreadCount(8) # 设置线程池最大线程数
@@ -208,6 +212,7 @@ class singlePageContent(QWidget, Ui_singlePageContent):
         self.single_start_btn.setEnabled(True)
         self.single_input_lineEdit.setEnabled(True)
         self.single_example_btn.setEnabled(True)
+        self.finish_loading.emit()
     
     def predict_all(self, smiles, cano_smiles, mol):
         for method in self.predict_methods.values():
