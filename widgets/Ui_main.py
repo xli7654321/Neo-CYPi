@@ -59,7 +59,7 @@ class Ui_MainWindow(object):
         self.home_page.setObjectName(u"home_page")
         self.layoutWidget = QWidget(self.home_page)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(30, 20, 79, 28))
+        self.layoutWidget.setGeometry(QRect(40, 20, 79, 28))
         self.home_hLayout = QHBoxLayout(self.layoutWidget)
         self.home_hLayout.setSpacing(6)
         self.home_hLayout.setObjectName(u"home_hLayout")
@@ -90,38 +90,16 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.single_page)
         self.batch_page = QWidget()
         self.batch_page.setObjectName(u"batch_page")
-        self.layoutWidget1 = QWidget(self.batch_page)
-        self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(30, 20, 165, 28))
-        self.batch_hLayout = QHBoxLayout(self.layoutWidget1)
-        self.batch_hLayout.setObjectName(u"batch_hLayout")
-        self.batch_hLayout.setContentsMargins(0, 0, 0, 0)
-        self.batch_icon = QLabel(self.layoutWidget1)
-        self.batch_icon.setObjectName(u"batch_icon")
-        self.batch_icon.setMaximumSize(QSize(20, 20))
-        self.batch_icon.setPixmap(QPixmap(u":/icons/icons/Microsoft-Fluentui-Emoji-Mono-Infinity.ico"))
-        self.batch_icon.setScaledContents(True)
-        self.batch_icon.setAlignment(Qt.AlignCenter)
-
-        self.batch_hLayout.addWidget(self.batch_icon)
-
-        self.batch_label = QLabel(self.layoutWidget1)
-        self.batch_label.setObjectName(u"batch_label")
-        self.batch_label.setFont(font2)
-        self.batch_label.setAlignment(Qt.AlignCenter)
-
-        self.batch_hLayout.addWidget(self.batch_label)
-
         self.stackedWidget.addWidget(self.batch_page)
         self.about_page = QWidget()
         self.about_page.setObjectName(u"about_page")
-        self.layoutWidget2 = QWidget(self.about_page)
-        self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(30, 20, 80, 28))
-        self.about_hLayout = QHBoxLayout(self.layoutWidget2)
+        self.layoutWidget1 = QWidget(self.about_page)
+        self.layoutWidget1.setObjectName(u"layoutWidget1")
+        self.layoutWidget1.setGeometry(QRect(40, 20, 80, 28))
+        self.about_hLayout = QHBoxLayout(self.layoutWidget1)
         self.about_hLayout.setObjectName(u"about_hLayout")
         self.about_hLayout.setContentsMargins(0, 0, 0, 0)
-        self.batch_icon_2 = QLabel(self.layoutWidget2)
+        self.batch_icon_2 = QLabel(self.layoutWidget1)
         self.batch_icon_2.setObjectName(u"batch_icon_2")
         self.batch_icon_2.setMaximumSize(QSize(20, 20))
         self.batch_icon_2.setPixmap(QPixmap(u":/icons/icons/Bootstrap-Bootstrap-Bootstrap-info-circle.ico"))
@@ -130,7 +108,7 @@ class Ui_MainWindow(object):
 
         self.about_hLayout.addWidget(self.batch_icon_2)
 
-        self.about_label = QLabel(self.layoutWidget2)
+        self.about_label = QLabel(self.layoutWidget1)
         self.about_label.setObjectName(u"about_label")
         self.about_label.setFont(font2)
         self.about_label.setAlignment(Qt.AlignCenter)
@@ -213,6 +191,7 @@ class Ui_MainWindow(object):
         self.home_btn.setMinimumSize(QSize(135, 60))
         self.home_btn.setMaximumSize(QSize(16777215, 16777215))
         self.home_btn.setFont(font1)
+        self.home_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.home_btn.setCheckable(True)
         self.home_btn.setAutoExclusive(True)
 
@@ -223,6 +202,7 @@ class Ui_MainWindow(object):
         self.single_btn.setMinimumSize(QSize(135, 60))
         self.single_btn.setMaximumSize(QSize(16777215, 16777215))
         self.single_btn.setFont(font1)
+        self.single_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.single_btn.setCheckable(True)
         self.single_btn.setAutoExclusive(True)
 
@@ -232,6 +212,7 @@ class Ui_MainWindow(object):
         self.batch_btn.setObjectName(u"batch_btn")
         self.batch_btn.setMinimumSize(QSize(135, 60))
         self.batch_btn.setFont(font1)
+        self.batch_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.batch_btn.setCheckable(True)
         self.batch_btn.setAutoExclusive(True)
 
@@ -241,6 +222,7 @@ class Ui_MainWindow(object):
         self.about_btn.setObjectName(u"about_btn")
         self.about_btn.setMinimumSize(QSize(135, 60))
         self.about_btn.setFont(font1)
+        self.about_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.about_btn.setCheckable(True)
         self.about_btn.setAutoExclusive(True)
 
@@ -257,6 +239,7 @@ class Ui_MainWindow(object):
         self.exit_btn.setObjectName(u"exit_btn")
         self.exit_btn.setMinimumSize(QSize(136, 60))
         self.exit_btn.setFont(font1)
+        self.exit_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.sidebar_vLayout.addWidget(self.exit_btn)
 
@@ -268,7 +251,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.exit_btn.clicked.connect(MainWindow.close)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -278,8 +261,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Uni-CYPred", None))
         self.home_icon.setText("")
         self.home_label.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.batch_icon.setText("")
-        self.batch_label.setText(QCoreApplication.translate("MainWindow", u"Batch Prediction", None))
         self.batch_icon_2.setText("")
         self.about_label.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.status_label.setText(QCoreApplication.translate("MainWindow", u"Waiting for Prediction", None))

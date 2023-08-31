@@ -19,22 +19,22 @@ from widgets.Ui_single_page_content import Ui_singlePageContent
 from widgets.collapsible_box import CollapsibleBox
 
 
-class predictionSignals(QObject):
+class PredictionSignals(QObject):
     finished = Signal()
 
 
-class predictionWorker(QRunnable):
+class PredictionWorker(QRunnable):
     def __init__(self, function):
         super().__init__()
         self.function = function
-        self.signals = predictionSignals()
+        self.signals = PredictionSignals()
 
     def run(self):
         self.function()
         self.signals.finished.emit()
 
 
-class singlePageContent(QWidget, Ui_singlePageContent):
+class SinglePageContent(QWidget, Ui_singlePageContent):
     show_warning_msgbox_signal = Signal(str, str, str, QWidget)
     start_loading = Signal()
     finish_loading = Signal()
@@ -159,7 +159,7 @@ class singlePageContent(QWidget, Ui_singlePageContent):
 
         self.start_loading.emit()
 
-        worker = predictionWorker(self._run_prediction)
+        worker = PredictionWorker(self._run_prediction)
         worker.signals.finished.connect(self.end_prediction)
         QThreadPool.globalInstance().setMaxThreadCount(8) # 设置线程池最大线程数
         QThreadPool.globalInstance().start(worker)  # 获取全局线程池的实例并启动线程

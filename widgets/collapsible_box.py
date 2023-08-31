@@ -1,5 +1,5 @@
 from PySide6.QtCore import QAbstractAnimation, QParallelAnimationGroup, QPropertyAnimation, Qt, Slot
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QCursor
 from PySide6.QtWidgets import QFrame, QScrollArea, QSizePolicy, QToolButton, QVBoxLayout, QWidget  
 
 
@@ -16,6 +16,7 @@ class CollapsibleBox(QWidget):
         self.toggle_btn.setText('Select Prediction Models')
         self.toggle_btn.setCheckable(True)
         self.toggle_btn.setChecked(False)
+        self.toggle_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.toggle_btn.setToolButtonStyle(
             Qt.ToolButtonStyle.ToolButtonTextBesideIcon
         )

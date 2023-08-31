@@ -41,7 +41,7 @@ class Ui_singlePageContent(object):
         self.single_scrollArea.setWidgetResizable(True)
         self.single_scrollAreaWidgetContents = QWidget()
         self.single_scrollAreaWidgetContents.setObjectName(u"single_scrollAreaWidgetContents")
-        self.single_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 847, 621))
+        self.single_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 847, 623))
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -117,6 +117,7 @@ class Ui_singlePageContent(object):
         self.single_example_btn.setObjectName(u"single_example_btn")
         self.single_example_btn.setMinimumSize(QSize(80, 0))
         self.single_example_btn.setFont(font)
+        self.single_example_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.single_gridLayout.addWidget(self.single_example_btn, 1, 1, 1, 1)
 
@@ -140,6 +141,7 @@ class Ui_singlePageContent(object):
         self.single_start_btn.setMinimumSize(QSize(0, 30))
         self.single_start_btn.setMaximumSize(QSize(16777215, 30))
         self.single_start_btn.setFont(font)
+        self.single_start_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.horizontalLayout_2.addWidget(self.single_start_btn)
 
@@ -182,12 +184,14 @@ class Ui_singlePageContent(object):
         self.single_save_btn = QPushButton(self.single_result_groupbox)
         self.single_save_btn.setObjectName(u"single_save_btn")
         self.single_save_btn.setFont(font)
+        self.single_save_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.horizontalLayout_3.addWidget(self.single_save_btn)
 
         self.single_clear_btn = QPushButton(self.single_result_groupbox)
         self.single_clear_btn.setObjectName(u"single_clear_btn")
         self.single_clear_btn.setFont(font)
+        self.single_clear_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.horizontalLayout_3.addWidget(self.single_clear_btn)
 
@@ -213,7 +217,7 @@ class Ui_singlePageContent(object):
         self.single_icon.setText("")
         self.single_label.setText(QCoreApplication.translate("singlePageContent", u"Single-Molecule Prediction", None))
         self.single_input_lineEdit.setPlaceholderText(QCoreApplication.translate("singlePageContent", u"CC(C)(C)NCc1cc(Nc2ccnc3cc(Cl)ccc23)ccc1F", None))
-        self.single_input_label.setText(QCoreApplication.translate("singlePageContent", u"<html><head/><body><p>Please input a <span style=\" font-weight:700; color:#55aaff;\">SMILES</span> string for prediction:</p></body></html>", None))
+        self.single_input_label.setText(QCoreApplication.translate("singlePageContent", u"<html><head/><body><p>Please input a <span style=\" font-weight:700; color:#0055ff;\">SMILES</span> string for prediction:</p></body></html>", None))
         self.single_example_btn.setText(QCoreApplication.translate("singlePageContent", u"Example", None))
         self.single_start_btn.setText(QCoreApplication.translate("singlePageContent", u"START PREDICTION", None))
         self.single_result_groupbox.setTitle(QCoreApplication.translate("singlePageContent", u"Results", None))

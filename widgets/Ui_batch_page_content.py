@@ -119,6 +119,7 @@ class Ui_batchPageContent(object):
         self.batch_browse_btn.setObjectName(u"batch_browse_btn")
         self.batch_browse_btn.setMinimumSize(QSize(80, 0))
         self.batch_browse_btn.setFont(font)
+        self.batch_browse_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.batch_gridLayout.addWidget(self.batch_browse_btn, 1, 1, 1, 1)
 
@@ -140,6 +141,7 @@ class Ui_batchPageContent(object):
         self.batch_start_btn = QPushButton(self.batch_scrollAreaWidgetContents)
         self.batch_start_btn.setObjectName(u"batch_start_btn")
         self.batch_start_btn.setFont(font)
+        self.batch_start_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.horizontalLayout_2.addWidget(self.batch_start_btn)
 
@@ -182,12 +184,14 @@ class Ui_batchPageContent(object):
         self.batch_save_btn = QPushButton(self.batch_result_groupbox)
         self.batch_save_btn.setObjectName(u"batch_save_btn")
         self.batch_save_btn.setFont(font)
+        self.batch_save_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.horizontalLayout_3.addWidget(self.batch_save_btn)
 
         self.batch_clear_btn = QPushButton(self.batch_result_groupbox)
         self.batch_clear_btn.setObjectName(u"batch_clear_btn")
         self.batch_clear_btn.setFont(font)
+        self.batch_clear_btn.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.horizontalLayout_3.addWidget(self.batch_clear_btn)
 
@@ -213,7 +217,7 @@ class Ui_batchPageContent(object):
         self.batch_icon.setText("")
         self.batch_label.setText(QCoreApplication.translate("batchPageContent", u"Batch-Molecule Prediction", None))
         self.batch_input_lineEdit.setPlaceholderText(QCoreApplication.translate("batchPageContent", u"No file chosen", None))
-        self.batch_input_label.setText(QCoreApplication.translate("batchPageContent", u"<html><head/><body><p>Please upload a <span style=\" font-weight:700; color:#55aaff;\">txt</span> or <span style=\" font-weight:700; color:#55aaff;\">sdf</span> format file for prediction:</p></body></html>", None))
+        self.batch_input_label.setText(QCoreApplication.translate("batchPageContent", u"<html><head/><body><p>Please upload a <span style=\" font-weight:700; color:#0055ff;\">txt</span> or <span style=\" font-weight:700; color:#0055ff;\">sdf</span> format file for prediction:</p></body></html>", None))
         self.batch_browse_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
         self.batch_start_btn.setText(QCoreApplication.translate("batchPageContent", u"START PREDICTION", None))
         self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPageContent", u"Results", None))

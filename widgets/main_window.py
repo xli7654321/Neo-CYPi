@@ -11,8 +11,8 @@ from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout
 
 from widgets.Ui_main import Ui_MainWindow
-from widgets.batch_page_content import batchPageContent
-from widgets.single_page_content import singlePageContent
+from widgets.batch_page_content import BatchPageContent
+from widgets.single_page_content import SinglePageContent
 from widgets.spinner import WaitingSpinner
 
 
@@ -24,8 +24,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         # 初始化各个页面的内容
-        self.single_page_content = singlePageContent()
-        self.batch_page_content = batchPageContent()
+        self.single_page_content = SinglePageContent()
+        self.batch_page_content = BatchPageContent()
 
         self.add_home_page_content()
         self.add_single_page_content()

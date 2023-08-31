@@ -94,13 +94,13 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>3</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="home_page">
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>30</x>
+             <x>40</x>
              <y>20</y>
              <width>79</width>
              <height>28</height>
@@ -155,63 +155,12 @@
           </widget>
          </widget>
          <widget class="QWidget" name="single_page"/>
-         <widget class="QWidget" name="batch_page">
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>165</width>
-             <height>28</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="batch_hLayout">
-            <item>
-             <widget class="QLabel" name="batch_icon">
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="pixmap">
-               <pixmap resource="../static/resource.qrc">:/icons/icons/Microsoft-Fluentui-Emoji-Mono-Infinity.ico</pixmap>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="batch_label">
-              <property name="font">
-               <font>
-                <family>Segoe UI</family>
-                <pointsize>14</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Batch Prediction</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+         <widget class="QWidget" name="batch_page"/>
          <widget class="QWidget" name="about_page">
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>30</x>
+             <x>40</x>
              <y>20</y>
              <width>80</width>
              <height>28</height>
@@ -459,6 +408,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>Home</string>
            </property>
@@ -490,6 +442,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>Single-Molecule
 Prediction</string>
@@ -516,6 +471,9 @@ Prediction</string>
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>Batch
 Prediction</string>
@@ -541,6 +499,9 @@ Prediction</string>
              <family>Segoe UI</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>About</string>
@@ -582,6 +543,9 @@ Prediction</string>
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Exit</string>
          </property>
@@ -594,6 +558,7 @@ Prediction</string>
   </widget>
  </widget>
  <resources>
+  <include location="../static/resource.qrc"/>
   <include location="../static/resource.qrc"/>
  </resources>
  <connections>

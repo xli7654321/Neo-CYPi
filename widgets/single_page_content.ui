@@ -58,7 +58,7 @@
       <x>0</x>
       <y>0</y>
       <width>847</width>
-      <height>621</height>
+      <height>623</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -229,7 +229,7 @@
           </font>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please input a &lt;span style=&quot; font-weight:700; color:#55aaff;&quot;&gt;SMILES&lt;/span&gt; string for prediction:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please input a &lt;span style=&quot; font-weight:700; color:#0055ff;&quot;&gt;SMILES&lt;/span&gt; string for prediction:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -246,6 +246,9 @@
            <family>Segoe UI</family>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string>Example</string>
@@ -310,6 +313,9 @@
            <family>Segoe UI</family>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string>START PREDICTION</string>
@@ -424,6 +430,9 @@
               <pointsize>12</pointsize>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string>Save Results</string>
             </property>
@@ -436,6 +445,9 @@
               <family>Segoe UI</family>
               <pointsize>12</pointsize>
              </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="text">
              <string>Clear Results</string>
@@ -468,6 +480,7 @@
   </widget>
  </widget>
  <resources>
+  <include location="../static/resource.qrc"/>
   <include location="../static/resource.qrc"/>
  </resources>
  <connections/>
