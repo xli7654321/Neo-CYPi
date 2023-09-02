@@ -8,10 +8,12 @@ Cause I'm the one who can make changes, who make differences.
 """
 from PySide6.QtCore import Slot
 from PySide6.QtGui import QColor
-from PySide6.QtWidgets import QMainWindow, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QMessageBox, QVBoxLayout
 
 from widgets.Ui_main import Ui_MainWindow
+from widgets.about_page_content import AboutPageContent
 from widgets.batch_page_content import BatchPageContent
+from widgets.home_page_content import HomePageContent
 from widgets.single_page_content import SinglePageContent
 from widgets.spinner import WaitingSpinner
 
@@ -24,8 +26,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         # 初始化各个页面的内容
+        self.home_page_content = HomePageContent()
         self.single_page_content = SinglePageContent()
         self.batch_page_content = BatchPageContent()
+        self.about_page_content = AboutPageContent()
 
         self.add_home_page_content()
         self.add_single_page_content()
@@ -63,8 +67,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.batch_page_content.start_loading.connect(self.start_loading)
         self.batch_page_content.finish_loading.connect(self.finish_loading)
 
+        self.exit_btn.clicked.connect(self.close)
+
     def add_home_page_content(self):
-        pass
+        layout = QVBoxLayout(self.home_page)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        layout.addWidget(self.home_page_content)
 
     def add_single_page_content(self):
         # layout 充当一个添加 single_page 的角色
@@ -80,7 +89,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         layout.addWidget(self.batch_page_content)
 
     def add_about_page_content(self):
-        pass
+        layout = QVBoxLayout(self.about_page)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        layout.addWidget(self.about_page_content)
 
     # 切换界面的槽函数
     @Slot(bool)
@@ -115,3 +127,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.running_prediction_counts == 0:
             self.loading_spinner.stop()
             self.status_label.setText('Waiting for Prediction')
+    
+    def closeEvent(self, event):
+        reply = QMessageBox.question(
+            self, 
+            'Confirm Exit', 
+            'Are you sure you want to exit?', 
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, 
+            QMessageBox.StandardButton.No
+        )
+        # 第四个参数为设置默认按钮（setDefaultButton），即在用户按下键盘上的 “Enter” 键时自动触发的按钮
+
+        if reply == QMessageBox.StandardButton.Yes:
+            event.accept()
+        else:
+            event.ignore()

@@ -170,9 +170,10 @@ class SinglePageContent(QWidget, Ui_singlePageContent):
         ]
         if not selected_isoforms:
             self.show_warning_msgbox_signal.emit(
+                'Select Error', 
                 'No Model Selected!', 
                 'Please select at least one model to start prediction.', 
-                'Select Error', self.single_input_lineEdit
+                self.single_input_lineEdit
             )
             return
         else:
@@ -180,8 +181,10 @@ class SinglePageContent(QWidget, Ui_singlePageContent):
             if not smiles:
                 # 输入为空
                 self.show_warning_msgbox_signal.emit(
-                    'Please input a valid SMILES string!', None, 
-                    'Input Error', self.single_input_lineEdit
+                    'Input Error', 
+                    'Please input a valid SMILES string!', 
+                    None, 
+                    self.single_input_lineEdit
                 )
                 return
             else:
@@ -189,8 +192,10 @@ class SinglePageContent(QWidget, Ui_singlePageContent):
                 mol = MolFromSmiles(smiles)
                 if mol is None:
                     self.show_warning_msgbox_signal.emit(
-                        'Please input a valid SMILES string!', None, 
-                        'Input Error', self.single_input_lineEdit
+                        'Input Error', 
+                        'Please input a valid SMILES string!', 
+                        None, 
+                        self.single_input_lineEdit
                     )
                     return
                 else:
@@ -332,20 +337,20 @@ class SinglePageContent(QWidget, Ui_singlePageContent):
         self.result_model.removeRows(0, self.result_model.rowCount())
 
     @Slot(str, str, str, QWidget)
-    def show_warning_msgbox(self, text, informative_text, title, input_widget):
+    def show_warning_msgbox(self, title, text, informative_text, input_widget):
         msg_box = QMessageBox(self)
         msg_box.setIcon(QMessageBox.Icon.Warning)
+        msg_box.setWindowTitle(title)
         msg_box.setText(text)
         msg_box.setInformativeText(informative_text)
-        msg_box.setWindowTitle(title)
         msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
         msg_box.setFont(QFont('Segoe UI', 11))
     
         # 显示 QMessageBox 并等待用户点击按钮，会返回一个整数值，该值对应于用户点击的按钮
         # 这个值可以用于进一步决定程序应如何响应
-        return_value = msg_box.exec()
+        reply = msg_box.exec()
     
-        if return_value == QMessageBox.StandardButton.Ok:
+        if reply == QMessageBox.StandardButton.Ok:
             # 用户点击确定后，将焦点重新定位到输入框
             input_widget.setFocus()
             # return 用于在显示警告并处理用户的响应后结束此方法或函数的执行

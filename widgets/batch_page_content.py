@@ -171,9 +171,10 @@ class BatchPageContent(QWidget, Ui_batchPageContent):
                 self.file_type = 'sdf'
             else:
                 self.show_warning_msgbox_signal.emit(
+                    'File Type Error', 
                     'Invalid File Type!', 
                     'Please upload a valid txt or sdf format file for prediction.', 
-                    'File Type Error', self.batch_input_lineEdit
+                    self.batch_input_lineEdit
                 )
                 self.batch_input_lineEdit.clear()
     
@@ -199,9 +200,10 @@ class BatchPageContent(QWidget, Ui_batchPageContent):
 
         if not selected_isoforms:
             self.show_warning_msgbox_signal.emit(
+                'Select Error', 
                 'No Model Selected!', 
                 'Please select at least one model to start prediction.', 
-                'Select Error', self.batch_input_lineEdit
+                self.batch_input_lineEdit
             )
             return
         else:
@@ -209,9 +211,10 @@ class BatchPageContent(QWidget, Ui_batchPageContent):
                 if not self.txt_data:
                     # 上传的文件内容为空
                     self.show_warning_msgbox_signal.emit(
+                        'File Content Error', 
                         'The Uploaded File is Empty!', 
                         'Please check the contents of your file and upload again.', 
-                        'File Content Error', self.batch_input_lineEdit
+                        self.batch_input_lineEdit
                     )
                     self.batch_input_lineEdit.clear()
                     return
@@ -238,9 +241,10 @@ class BatchPageContent(QWidget, Ui_batchPageContent):
             elif self.file_type == 'sdf':
                 if not self.sdf_data:
                     self.show_warning_msgbox_signal.emit(
+                        'File Content Error', 
                         'The Uploaded File is Empty!', 
                         'Please check the contents of your file and upload again.', 
-                        'File Content Error', self.batch_input_lineEdit
+                        self.batch_input_lineEdit
                     )
                     self.batch_input_lineEdit.clear()
                     return
@@ -267,9 +271,10 @@ class BatchPageContent(QWidget, Ui_batchPageContent):
             else:
                 # 没有上传文件，或上传文件的格式不对后输入框被清空
                 self.show_warning_msgbox_signal.emit(
+                    'File Error', 
                     'No File Chosen!', 
                     'Please choose a file to upload before prediction.', 
-                    'File Error', self.batch_input_lineEdit
+                    self.batch_input_lineEdit
                 )
                 return
     
@@ -396,17 +401,17 @@ class BatchPageContent(QWidget, Ui_batchPageContent):
         self.result_model.removeRows(0, self.result_model.rowCount())
 
     @Slot(str, str, str, QWidget)
-    def show_warning_msgbox(self, text, informative_text, title, input_widget):
+    def show_warning_msgbox(self, title, text, informative_text, input_widget):
         msg_box = QMessageBox(self)
         msg_box.setIcon(QMessageBox.Icon.Warning)
+        msg_box.setWindowTitle(title)
         msg_box.setText(text)
         msg_box.setInformativeText(informative_text)
-        msg_box.setWindowTitle(title)
         msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
         msg_box.setFont(QFont('Segoe UI', 11))
     
-        return_value = msg_box.exec()
+        reply = msg_box.exec()
     
-        if return_value == QMessageBox.StandardButton.Ok:
+        if reply == QMessageBox.StandardButton.Ok:
             input_widget.setFocus()
             return

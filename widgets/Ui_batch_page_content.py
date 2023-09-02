@@ -112,6 +112,8 @@ class Ui_batchPageContent(object):
         font2.setFamilies([u"Segoe UI"])
         font2.setPointSize(13)
         self.batch_input_label.setFont(font2)
+        self.batch_input_label.setCursor(QCursor(Qt.IBeamCursor))
+        self.batch_input_label.setTextInteractionFlags(Qt.LinksAccessibleByMouse|Qt.TextSelectableByMouse)
 
         self.batch_gridLayout.addWidget(self.batch_input_label, 0, 0, 1, 1)
 
@@ -221,6 +223,9 @@ class Ui_batchPageContent(object):
         self.batch_browse_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
         self.batch_start_btn.setText(QCoreApplication.translate("batchPageContent", u"START PREDICTION", None))
         self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPageContent", u"Results", None))
+#if QT_CONFIG(tooltip)
+        self.batch_save_btn.setToolTip(QCoreApplication.translate("batchPageContent", u"Save Results as CSV Format File", None))
+#endif // QT_CONFIG(tooltip)
         self.batch_save_btn.setText(QCoreApplication.translate("batchPageContent", u"Save Results", None))
         self.batch_clear_btn.setText(QCoreApplication.translate("batchPageContent", u"Clear Results", None))
     # retranslateUi

@@ -38,6 +38,7 @@ QHeaderView {
 
 #logo_label {
     color: white;
+    font-weight: 600;
 }
 
 #sidebar_widget QPushButton {
@@ -59,6 +60,22 @@ QHeaderView {
 }
 
 /* style for home page content widget */
+
+#home_label {
+    font-weight: 600;
+}
+
+#home_scrollArea {
+    border: none;
+}
+
+#home_scrollAreaWidgetContents {
+    background-color: white;
+}
+
+#home_title_label {
+    color: rgb(0, 85, 255);
+}
 
 /* style for single page content widget */
 
@@ -89,6 +106,22 @@ QHeaderView {
 }
 
 /* style for about page content widget */
+
+#about_label {
+    font-weight: 600;
+}
+
+#about_scrollArea {
+    border: none;
+}
+
+#about_scrollAreaWidgetContents {
+    background-color: white;
+}
+
+#about_title_label {
+    color: rgb(0, 85, 255);
+}
 
 /* style for statusbar widget */
 

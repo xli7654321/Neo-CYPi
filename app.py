@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     # 保持原始的纵横比，设置想要缩放的宽度，实际的高度会自动计算
     pixmap = QPixmap('static/ecust_text_logo.png').scaled(
-        QSize(1000, 1000), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation
+        QSize(750, 750), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation
     )
     splash = NonInteractiveSplashScreen(pixmap)
     splash.setWindowOpacity(splash_opacity)

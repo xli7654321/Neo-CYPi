@@ -219,8 +219,14 @@
            <pointsize>13</pointsize>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please upload a &lt;span style=&quot; font-weight:700; color:#0055ff;&quot;&gt;txt&lt;/span&gt; or &lt;span style=&quot; font-weight:700; color:#0055ff;&quot;&gt;sdf&lt;/span&gt; format file for prediction:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -411,6 +417,9 @@
             </property>
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Save Results as CSV Format File</string>
             </property>
             <property name="text">
              <string>Save Results</string>
