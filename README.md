@@ -1,6 +1,8 @@
 # Uni-CYPred
 
-### Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes, based on our existing best models.
+<div style="text-align: justify;">
+Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes, based on our existing best models.
+</div>
 
 ## Getting started
 
