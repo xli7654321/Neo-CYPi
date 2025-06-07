@@ -1,18 +1,8 @@
-"""
-@Time : 2023/08/23 15:13
-@Author : xli_0b101010
-@File : functions.py
-=============================================================
-Just waiting for good things to happen won't change anything,
-Cause I'm the one who can make changes, who make differences.
-"""
 import heapq
-
 import numpy as np
 from rdkit.Chem import DataStructs
 from scipy.spatial import distance
 from sklearn.preprocessing import StandardScaler
-
 
 def rdkit_numpy_convert(fp):
     """
@@ -24,7 +14,6 @@ def rdkit_numpy_convert(fp):
     output.append(arr)
     return np.asarray(output)
 
-
 def is_in_training_set(cano_smiles, inhib_proba, train_data):
     """
     Check if the input SMILES string is in the training set, if molecule is in the training set,
@@ -35,7 +24,6 @@ def is_in_training_set(cano_smiles, inhib_proba, train_data):
             true_value = str(train_data['CLASS'][i])
             return ''.join([true_value, '*'])
     return inhib_proba
-
 
 def is_in_applicability_domain(x_scaled, x_train_scaled, threshold):
     """
@@ -66,8 +54,14 @@ def is_in_applicability_domain(x_scaled, x_train_scaled, threshold):
     else:
         return 'ID'
 
+def is_in_domain_tanimoto(query_fp, train_fps, threshold):
+    sims = [DataStructs.TanimotoSimilarity(query_fp, fp) for fp in train_fps]
+    if max(sims) >= threshold:
+        return 'ID'
+    else:
+        return 'OD'
 
-def predict_inhib_proba(x, x_train, model):
+def predict_inhib_proba_s(x, x_train, model):
     """
     Predict inhibition probability, x_train and model are from pkl files, 
     only need to get features(x) from SMILES string
@@ -92,7 +86,6 @@ def predict_inhib_proba(x, x_train, model):
     --------
     inhib_proba_2b6, x_2b6_scaled = predict_inhib_proba(x_2b6, x_train_2b6, model_2b6)
     """
-    
     # Scale features
     scaler = StandardScaler().fit(x_train)
     x_scaled = scaler.transform(x)
@@ -102,3 +95,11 @@ def predict_inhib_proba(x, x_train, model):
     inhib_proba = ''.join(str(i) for i in inhib_proba)
     
     return inhib_proba, x_scaled
+
+def predict_inhib_proba_l(x, model):
+    # Model prediction
+    inhib_proba = np.round(model.predict_proba(x)[:, 1], 3)
+    # Convert to string
+    inhib_proba = ''.join(str(i) for i in inhib_proba)
+    
+    return inhib_proba

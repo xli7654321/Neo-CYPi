@@ -1,1 +1,8 @@
 __pycache__/
+build/
+dist/
+app.spec
+app_test.spec
+eg.txt
+requirements.txt
+installforge_config.ifp

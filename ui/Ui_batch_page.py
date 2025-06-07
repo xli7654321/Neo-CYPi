@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'batch_page_content.ui'
+## Form generated from reading UI file 'batch_page.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.1
 ##
@@ -21,19 +21,19 @@ from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QGroupBox,
     QTableView, QVBoxLayout, QWidget)
 import static.resource_rc
 
-class Ui_batchPageContent(object):
-    def setupUi(self, batchPageContent):
-        if not batchPageContent.objectName():
-            batchPageContent.setObjectName(u"batchPageContent")
-        batchPageContent.resize(864, 642)
-        batchPageContent.setMinimumSize(QSize(864, 642))
-        batchPageContent.setMaximumSize(QSize(864, 642))
+class Ui_batchPage(object):
+    def setupUi(self, batchPage):
+        if not batchPage.objectName():
+            batchPage.setObjectName(u"batchPage")
+        batchPage.resize(864, 642)
+        batchPage.setMinimumSize(QSize(864, 642))
+        batchPage.setMaximumSize(QSize(864, 642))
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(12)
-        batchPageContent.setFont(font)
-        batchPageContent.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
-        self.batch_scrollArea = QScrollArea(batchPageContent)
+        batchPage.setFont(font)
+        batchPage.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
+        self.batch_scrollArea = QScrollArea(batchPage)
         self.batch_scrollArea.setObjectName(u"batch_scrollArea")
         self.batch_scrollArea.setGeometry(QRect(0, 0, 864, 642))
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -136,7 +136,7 @@ class Ui_batchPageContent(object):
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalSpacer_2 = QSpacerItem(125, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(175, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
 
@@ -147,7 +147,7 @@ class Ui_batchPageContent(object):
 
         self.horizontalLayout_2.addWidget(self.batch_start_btn)
 
-        self.horizontalSpacer = QSpacerItem(125, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(175, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
@@ -209,24 +209,24 @@ class Ui_batchPageContent(object):
 
         self.batch_scrollArea.setWidget(self.batch_scrollAreaWidgetContents)
 
-        self.retranslateUi(batchPageContent)
+        self.retranslateUi(batchPage)
 
-        QMetaObject.connectSlotsByName(batchPageContent)
+        QMetaObject.connectSlotsByName(batchPage)
     # setupUi
 
-    def retranslateUi(self, batchPageContent):
-        batchPageContent.setWindowTitle(QCoreApplication.translate("batchPageContent", u"batchPageContent", None))
+    def retranslateUi(self, batchPage):
+        batchPage.setWindowTitle(QCoreApplication.translate("batchPage", u"batchPage", None))
         self.batch_icon.setText("")
-        self.batch_label.setText(QCoreApplication.translate("batchPageContent", u"Batch-Molecule Prediction", None))
-        self.batch_input_lineEdit.setPlaceholderText(QCoreApplication.translate("batchPageContent", u"No file chosen", None))
-        self.batch_input_label.setText(QCoreApplication.translate("batchPageContent", u"<html><head/><body><p>Please upload a <span style=\" font-weight:700; color:#0055ff;\">txt</span> or <span style=\" font-weight:700; color:#0055ff;\">sdf</span> format file for prediction:</p></body></html>", None))
-        self.batch_browse_btn.setText(QCoreApplication.translate("batchPageContent", u"Browse", None))
-        self.batch_start_btn.setText(QCoreApplication.translate("batchPageContent", u"START PREDICTION", None))
-        self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPageContent", u"Results", None))
+        self.batch_label.setText(QCoreApplication.translate("batchPage", u"Batch Prediction", None))
+        self.batch_input_lineEdit.setPlaceholderText(QCoreApplication.translate("batchPage", u"No file uploaded", None))
+        self.batch_input_label.setText(QCoreApplication.translate("batchPage", u"<html><head/><body><p>Please upload a <span style=\" font-weight:700; color:#1cbf70;\">TXT</span> or <span style=\" font-weight:700; color:#1cbf70;\">SDF</span> format file for prediction:</p></body></html>", None))
+        self.batch_browse_btn.setText(QCoreApplication.translate("batchPage", u"Browse", None))
+        self.batch_start_btn.setText(QCoreApplication.translate("batchPage", u"Submit Prediction", None))
+        self.batch_result_groupbox.setTitle(QCoreApplication.translate("batchPage", u"Results", None))
 #if QT_CONFIG(tooltip)
-        self.batch_save_btn.setToolTip(QCoreApplication.translate("batchPageContent", u"Save Results as CSV Format File", None))
+        self.batch_save_btn.setToolTip(QCoreApplication.translate("batchPage", u"Save Results as CSV Format File", None))
 #endif // QT_CONFIG(tooltip)
-        self.batch_save_btn.setText(QCoreApplication.translate("batchPageContent", u"Save Results", None))
-        self.batch_clear_btn.setText(QCoreApplication.translate("batchPageContent", u"Clear Results", None))
+        self.batch_save_btn.setText(QCoreApplication.translate("batchPage", u"Save Results", None))
+        self.batch_clear_btn.setText(QCoreApplication.translate("batchPage", u"Clear Results", None))
     # retranslateUi
 

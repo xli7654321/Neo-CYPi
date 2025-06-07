@@ -2,7 +2,6 @@ from PySide6.QtCore import QAbstractAnimation, QParallelAnimationGroup, QPropert
 from PySide6.QtGui import QFont, QCursor
 from PySide6.QtWidgets import QFrame, QScrollArea, QSizePolicy, QToolButton, QVBoxLayout, QWidget  
 
-
 class CollapsibleBox(QWidget):
     def __init__(self):
         super().__init__()
@@ -13,7 +12,7 @@ class CollapsibleBox(QWidget):
         self.toggle_btn = QToolButton()
         self.toggle_btn.setObjectName('toolbtn')
         self.toggle_btn.setFont(font)
-        self.toggle_btn.setText('Select Prediction Models')
+        self.toggle_btn.setText('Select CYP Isoforms')
         self.toggle_btn.setCheckable(True)
         self.toggle_btn.setChecked(False)
         self.toggle_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))

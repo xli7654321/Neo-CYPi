@@ -26,11 +26,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import math
-
 from PySide6.QtCore import QRect, Qt, QTimer
 from PySide6.QtGui import QColor, QPainter, QPaintEvent
 from PySide6.QtWidgets import QWidget
-
 
 # pylint: disable=too-many-instance-attributes,too-many-arguments
 class WaitingSpinner(QWidget):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'about_page_content.ui'
+## Form generated from reading UI file 'about_page.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.1
 ##
@@ -20,19 +20,19 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QVBoxLayout, QWidget)
 import static.resource_rc
 
-class Ui_aboutPageContent(object):
-    def setupUi(self, aboutPageContent):
-        if not aboutPageContent.objectName():
-            aboutPageContent.setObjectName(u"aboutPageContent")
-        aboutPageContent.resize(864, 642)
-        aboutPageContent.setMinimumSize(QSize(864, 642))
-        aboutPageContent.setMaximumSize(QSize(864, 642))
+class Ui_aboutPage(object):
+    def setupUi(self, aboutPage):
+        if not aboutPage.objectName():
+            aboutPage.setObjectName(u"aboutPage")
+        aboutPage.resize(864, 642)
+        aboutPage.setMinimumSize(QSize(864, 642))
+        aboutPage.setMaximumSize(QSize(864, 642))
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(12)
-        aboutPageContent.setFont(font)
-        aboutPageContent.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
-        self.about_scrollArea = QScrollArea(aboutPageContent)
+        aboutPage.setFont(font)
+        aboutPage.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
+        self.about_scrollArea = QScrollArea(aboutPage)
         self.about_scrollArea.setObjectName(u"about_scrollArea")
         self.about_scrollArea.setGeometry(QRect(0, 0, 864, 642))
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -99,10 +99,12 @@ class Ui_aboutPageContent(object):
         font2.setPointSize(24)
         font2.setBold(False)
         self.about_title_label.setFont(font2)
+        self.about_title_label.setCursor(QCursor(Qt.ArrowCursor))
         self.about_title_label.setFrameShape(QFrame.NoFrame)
         self.about_title_label.setFrameShadow(QFrame.Plain)
         self.about_title_label.setTextFormat(Qt.PlainText)
         self.about_title_label.setAlignment(Qt.AlignCenter)
+        self.about_title_label.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
 
         self.verticalLayout.addWidget(self.about_title_label)
 
@@ -248,23 +250,23 @@ class Ui_aboutPageContent(object):
 
         self.about_scrollArea.setWidget(self.about_scrollAreaWidgetContents)
 
-        self.retranslateUi(aboutPageContent)
+        self.retranslateUi(aboutPage)
 
-        QMetaObject.connectSlotsByName(aboutPageContent)
+        QMetaObject.connectSlotsByName(aboutPage)
     # setupUi
 
-    def retranslateUi(self, aboutPageContent):
-        aboutPageContent.setWindowTitle(QCoreApplication.translate("aboutPageContent", u"aboutPageContent", None))
+    def retranslateUi(self, aboutPage):
+        aboutPage.setWindowTitle(QCoreApplication.translate("aboutPage", u"aboutPage", None))
         self.about_icon.setText("")
-        self.about_label.setText(QCoreApplication.translate("aboutPageContent", u"About", None))
-        self.about_title_label.setText(QCoreApplication.translate("aboutPageContent", u"Uni-CYPred", None))
-        self.version_label.setText(QCoreApplication.translate("aboutPageContent", u"Version 1.0.0", None))
-        self.intro_label.setText(QCoreApplication.translate("aboutPageContent", u"Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes, based on our existing best models.", None))
-        self.copy_label.setText(QCoreApplication.translate("aboutPageContent", u"Copyright &copy; 2023 Laboratory of Molecular Modeling and Design, School of Pharmacy, East China University of Science and Technology. All rights reserved.", None))
-        self.license_label.setText(QCoreApplication.translate("aboutPageContent", u"<html><head/><body><p>License: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see <a href=\"https://github.com/dreamlessdrugs/Uni-CYPred\"><span style=\" text-decoration: underline; color:#0055ff;\">https://github.com/dreamlessdrugs/Uni-CYPred</span></a> for more details about Uni-CYPred licenses.</p></body></html>", None))
-        self.contact_label.setText(QCoreApplication.translate("aboutPageContent", u"<html><head/><body><p>Developed by Xiang Li and Prof. Weihua Li. Contact us by Email: <a href=\"mailto:whli@ecust.edu.cn\"><span style=\" text-decoration: underline; color:#0055ff;\">whli@ecust.edu.cn</span></a>. See <a href=\"http://lmmd.ecust.edu.cn/\"><span style=\" text-decoration: underline; color:#0055ff;\">LMMD</span></a> for more information about our laboratory.</p></body></html>", None))
-        self.thanks_label.setText(QCoreApplication.translate("aboutPageContent", u"<html><head/><body><p>We would also like to express our gratitude to scikit-learn, RDKit, and DeepChem for making this software possible.</p></body></html>", None))
-        self.report_btn.setText(QCoreApplication.translate("aboutPageContent", u"Report issues", None))
-        self.update_btn.setText(QCoreApplication.translate("aboutPageContent", u"Check for updates", None))
+        self.about_label.setText(QCoreApplication.translate("aboutPage", u"About", None))
+        self.about_title_label.setText(QCoreApplication.translate("aboutPage", u"Uni-CYPred", None))
+        self.version_label.setText(QCoreApplication.translate("aboutPage", u"Version 1.1.0", None))
+        self.intro_label.setText(QCoreApplication.translate("aboutPage", u"Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.", None))
+        self.copy_label.setText(QCoreApplication.translate("aboutPage", u"Copyright &copy; 2023 Laboratory of Molecular Modeling and Design, School of Pharmacy, East China University of Science and Technology. All rights reserved.", None))
+        self.license_label.setText(QCoreApplication.translate("aboutPage", u"<html><head/><body><p><span style=\" font-weight:600;\">License</span>: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see <a href=\"https://github.com/xli7654321/Uni-CYPred\"><span style=\" text-decoration: underline; color:#1cbf70;\">https://github.com/xli7654321/Uni-CYPred</span></a> for more details.</p></body></html>", None))
+        self.contact_label.setText(QCoreApplication.translate("aboutPage", u"<html><head/><body><p>Developer: Xiang Li and Prof. Weihua Li. Contact us by Email (<a href=\"xli3667@mail.ecust.edu.cn\"><span style=\" text-decoration: underline; color:#1cbf70;\">xli3667@mail.ecust.edu.cn</span></a> and <a href=\"whli@ecust.edu.cn\"><span style=\" text-decoration: underline; color:#1cbf70;\">whli@ecust.edu.cn</span></a>). See <a href=\"https://lmmd.ecust.edu.cn/\"><span style=\" text-decoration: underline; color:#1cbf70;\">LMMD</span></a> for more information about our laboratory.</p></body></html>", None))
+        self.thanks_label.setText(QCoreApplication.translate("aboutPage", u"<html><head/><body><p>We would also like to express our gratitude to scikit-learn, RDKit, and DeepChem for making this software possible.</p></body></html>", None))
+        self.report_btn.setText(QCoreApplication.translate("aboutPage", u"Report issues", None))
+        self.update_btn.setText(QCoreApplication.translate("aboutPage", u"Check for updates", None))
     # retranslateUi
 

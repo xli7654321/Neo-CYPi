@@ -1,50 +1,41 @@
-"""
-@Time : 2023/08/18 01:54
-@Author : xli_0b101010
-@File : main_window.py
-=============================================================
-Just waiting for good things to happen won't change anything,
-Cause I'm the one who can make changes, who make differences.
-"""
 from PySide6.QtCore import Slot
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QMainWindow, QMessageBox, QVBoxLayout
-
-from widgets.Ui_main import Ui_MainWindow
-from widgets.about_page_content import AboutPageContent
-from widgets.batch_page_content import BatchPageContent
-from widgets.home_page_content import HomePageContent
-from widgets.single_page_content import SinglePageContent
+from ui.Ui_main import Ui_MainWindow
+from widgets.about_page import AboutPage
+from widgets.batch_page import BatchPage
+from widgets.home_page import HomePage
+from widgets.single_page import SinglePage
 from widgets.spinner import WaitingSpinner
-
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-
-        # 初始化主页面 - 多继承
+        # Initialize main window - multiple inheritance
         self.setupUi(self)
 
-        # 初始化各个页面的内容
-        self.home_page_content = HomePageContent()
-        self.single_page_content = SinglePageContent()
-        self.batch_page_content = BatchPageContent()
-        self.about_page_content = AboutPageContent()
+        # Initialize pages
+        self.home_page_widget = HomePage()
+        self.single_page_widget = SinglePage()
+        self.batch_page_widget = BatchPage()
+        self.about_page_widget = AboutPage()
 
-        self.add_home_page_content()
-        self.add_single_page_content()
-        self.add_batch_page_content()
-        self.add_about_page_content()
+        self.add_home_page()
+        self.add_single_page()
+        self.add_batch_page()
+        self.add_about_page()
 
-        # 设置默认显示的页面
+        # Set the default displayed page
         self.stackedWidget.setCurrentIndex(0)
         self.home_btn.setChecked(True)
 
-        # 绑定 sidebar 按钮的 toggled 信号到槽函数
+        # Bind the toggled signal of sidebar buttons to slot functions
         self.home_btn.toggled.connect(self.on_home_btn_toggled)
         self.single_btn.toggled.connect(self.on_single_btn_toggled)
         self.batch_btn.toggled.connect(self.on_batch_btn_toggled)
         self.about_btn.toggled.connect(self.on_about_btn_toggled)
+        
+        self.home_page_widget.jump_to_single.connect(self.show_single_page)
 
         # statusbar loading spinner
         self.loading_spinner = WaitingSpinner(
@@ -62,39 +53,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.running_prediction_counts = 0
 
-        self.single_page_content.start_loading.connect(self.start_loading)
-        self.single_page_content.finish_loading.connect(self.finish_loading)
-        self.batch_page_content.start_loading.connect(self.start_loading)
-        self.batch_page_content.finish_loading.connect(self.finish_loading)
+        self.single_page_widget.start_loading.connect(self.start_loading)
+        self.single_page_widget.finish_loading.connect(self.finish_loading)
+        self.batch_page_widget.start_loading.connect(self.start_loading)
+        self.batch_page_widget.finish_loading.connect(self.finish_loading)
 
         self.exit_btn.clicked.connect(self.close)
 
-    def add_home_page_content(self):
-        layout = QVBoxLayout(self.home_page)
+    def add_home_page(self):
+        # layout acts as a container to add the home_page
+        layout = QVBoxLayout(self.home_page)  # home_page comes from ui
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(self.home_page_content)
+        layout.addWidget(self.home_page_widget)
 
-    def add_single_page_content(self):
-        # layout 充当一个添加 single_page 的角色
-        layout = QVBoxLayout(self.single_page)  # single_page 来源于 ui
+    def add_single_page(self):
+        layout = QVBoxLayout(self.single_page)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(self.single_page_content)
+        layout.addWidget(self.single_page_widget)
 
-    def add_batch_page_content(self):
+    def add_batch_page(self):
         layout = QVBoxLayout(self.batch_page)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(self.batch_page_content)
+        layout.addWidget(self.batch_page_widget)
 
-    def add_about_page_content(self):
+    def add_about_page(self):
         layout = QVBoxLayout(self.about_page)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(self.about_page_content)
+        layout.addWidget(self.about_page_widget)
 
-    # 切换界面的槽函数
+    # Slot functions to switch pages
     @Slot(bool)
     def on_home_btn_toggled(self, checked):
         if checked:
@@ -114,6 +105,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_about_btn_toggled(self, checked):
         if checked:
             self.stackedWidget.setCurrentIndex(3)
+            
+    @Slot()
+    def show_single_page(self):
+        self.single_btn.setChecked(True)
+        self.stackedWidget.setCurrentIndex(1)
 
     @Slot()
     def start_loading(self):
@@ -126,7 +122,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.running_prediction_counts -= 1
         if self.running_prediction_counts == 0:
             self.loading_spinner.stop()
-            self.status_label.setText('Waiting for Prediction')
+            self.status_label.setText('')
     
     def closeEvent(self, event):
         reply = QMessageBox.question(
@@ -136,7 +132,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, 
             QMessageBox.StandardButton.No
         )
-        # 第四个参数为设置默认按钮（setDefaultButton），即在用户按下键盘上的 “Enter” 键时自动触发的按钮
 
         if reply == QMessageBox.StandardButton.Yes:
             event.accept()

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'single_page_content.ui'
+## Form generated from reading UI file 'single_page.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.1
 ##
@@ -21,19 +21,19 @@ from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QGroupBox,
     QTableView, QVBoxLayout, QWidget)
 import static.resource_rc
 
-class Ui_singlePageContent(object):
-    def setupUi(self, singlePageContent):
-        if not singlePageContent.objectName():
-            singlePageContent.setObjectName(u"singlePageContent")
-        singlePageContent.resize(864, 642)
-        singlePageContent.setMinimumSize(QSize(864, 642))
-        singlePageContent.setMaximumSize(QSize(864, 642))
+class Ui_singlePage(object):
+    def setupUi(self, singlePage):
+        if not singlePage.objectName():
+            singlePage.setObjectName(u"singlePage")
+        singlePage.resize(864, 642)
+        singlePage.setMinimumSize(QSize(864, 642))
+        singlePage.setMaximumSize(QSize(864, 642))
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(12)
-        singlePageContent.setFont(font)
-        singlePageContent.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
-        self.single_scrollArea = QScrollArea(singlePageContent)
+        singlePage.setFont(font)
+        singlePage.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
+        self.single_scrollArea = QScrollArea(singlePage)
         self.single_scrollArea.setObjectName(u"single_scrollArea")
         self.single_scrollArea.setGeometry(QRect(0, 0, 864, 642))
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -139,7 +139,7 @@ class Ui_singlePageContent(object):
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalSpacer_2 = QSpacerItem(125, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(175, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
 
@@ -152,7 +152,7 @@ class Ui_singlePageContent(object):
 
         self.horizontalLayout_2.addWidget(self.single_start_btn)
 
-        self.horizontalSpacer = QSpacerItem(125, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(175, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
@@ -214,24 +214,24 @@ class Ui_singlePageContent(object):
 
         self.single_scrollArea.setWidget(self.single_scrollAreaWidgetContents)
 
-        self.retranslateUi(singlePageContent)
+        self.retranslateUi(singlePage)
 
-        QMetaObject.connectSlotsByName(singlePageContent)
+        QMetaObject.connectSlotsByName(singlePage)
     # setupUi
 
-    def retranslateUi(self, singlePageContent):
-        singlePageContent.setWindowTitle(QCoreApplication.translate("singlePageContent", u"singlePageContent", None))
+    def retranslateUi(self, singlePage):
+        singlePage.setWindowTitle(QCoreApplication.translate("singlePage", u"singlePage", None))
         self.single_icon.setText("")
-        self.single_label.setText(QCoreApplication.translate("singlePageContent", u"Single-Molecule Prediction", None))
-        self.single_input_lineEdit.setPlaceholderText(QCoreApplication.translate("singlePageContent", u"CC(C)(C)NCc1cc(Nc2ccnc3cc(Cl)ccc23)ccc1F", None))
-        self.single_input_label.setText(QCoreApplication.translate("singlePageContent", u"<html><head/><body><p>Please input a <span style=\" font-weight:700; color:#0055ff;\">SMILES</span> string for prediction:</p></body></html>", None))
-        self.single_example_btn.setText(QCoreApplication.translate("singlePageContent", u"Example", None))
-        self.single_start_btn.setText(QCoreApplication.translate("singlePageContent", u"START PREDICTION", None))
-        self.single_result_groupbox.setTitle(QCoreApplication.translate("singlePageContent", u"Results", None))
+        self.single_label.setText(QCoreApplication.translate("singlePage", u"Single Molecule Prediction", None))
+        self.single_input_lineEdit.setPlaceholderText(QCoreApplication.translate("singlePage", u"CC(C)(C)NCc1cc(Nc2ccnc3cc(Cl)ccc23)ccc1F", None))
+        self.single_input_label.setText(QCoreApplication.translate("singlePage", u"<html><head/><body><p>Please input a <span style=\" font-weight:700; color:#1cbf70;\">SMILES</span> string for prediction:</p></body></html>", None))
+        self.single_example_btn.setText(QCoreApplication.translate("singlePage", u"Example", None))
+        self.single_start_btn.setText(QCoreApplication.translate("singlePage", u"Submit Prediction", None))
+        self.single_result_groupbox.setTitle(QCoreApplication.translate("singlePage", u"Results", None))
 #if QT_CONFIG(tooltip)
-        self.single_save_btn.setToolTip(QCoreApplication.translate("singlePageContent", u"Save Results as CSV Format File", None))
+        self.single_save_btn.setToolTip(QCoreApplication.translate("singlePage", u"Save Results as CSV Format File", None))
 #endif // QT_CONFIG(tooltip)
-        self.single_save_btn.setText(QCoreApplication.translate("singlePageContent", u"Save Results", None))
-        self.single_clear_btn.setText(QCoreApplication.translate("singlePageContent", u"Clear Results", None))
+        self.single_save_btn.setText(QCoreApplication.translate("singlePage", u"Save Results", None))
+        self.single_clear_btn.setText(QCoreApplication.translate("singlePage", u"Clear Results", None))
     # retranslateUi
 

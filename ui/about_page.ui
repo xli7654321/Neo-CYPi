@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>homePageContent</class>
- <widget class="QWidget" name="homePageContent">
+ <class>aboutPage</class>
+ <widget class="QWidget" name="aboutPage">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,12 +29,12 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>homePageContent</string>
+   <string>aboutPage</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
   </property>
-  <widget class="QScrollArea" name="home_scrollArea">
+  <widget class="QScrollArea" name="about_scrollArea">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -58,13 +58,13 @@
    <property name="widgetResizable">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="home_scrollAreaWidgetContents">
+   <widget class="QWidget" name="about_scrollAreaWidgetContents">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>847</width>
-      <height>654</height>
+      <height>646</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -73,7 +73,7 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -106,12 +106,12 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="home_headline_hlay">
+      <layout class="QHBoxLayout" name="about_headline_hlay" stretch="0,0">
        <property name="spacing">
         <number>6</number>
        </property>
        <item>
-        <widget class="QLabel" name="home_icon">
+        <widget class="QLabel" name="about_icon">
          <property name="maximumSize">
           <size>
            <width>20</width>
@@ -122,7 +122,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../static/resource.qrc">:/icons/icons/Ionic-Ionicons-Home.ico</pixmap>
+          <pixmap resource="../static/resource.qrc">:/icons/icons/Bootstrap-Bootstrap-Bootstrap-info-circle.ico</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -133,7 +133,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="home_label">
+        <widget class="QLabel" name="about_label">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -147,7 +147,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Home</string>
+          <string>About</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -173,7 +173,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="home_title_label">
+      <widget class="QLabel" name="about_title_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -186,6 +186,9 @@
          <pointsize>24</pointsize>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -201,6 +204,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByMouse</set>
        </property>
       </widget>
      </item>
@@ -225,7 +231,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>Version 1.0.0</string>
+        <string>Version 1.1.0</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -246,89 +252,13 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>35</height>
+         <height>40</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="home_headline_hlay_2">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="home_icon_2">
-         <property name="maximumSize">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../static/resource.qrc">:/icons/icons/Microsoft-Fluentui-Emoji-Mono-Magic-Wand.ico</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="start_label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Segoe UI</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Getting started&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::RichText</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>15</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="start_single_title_label">
+      <widget class="QLabel" name="intro_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -338,7 +268,7 @@
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>22</height>
+         <height>44</height>
         </size>
        </property>
        <property name="font">
@@ -351,47 +281,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;1. Single-Molecule Prediction&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::RichText</enum>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="start_single_content_label">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>132</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Segoe UI</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="cursor">
-        <cursorShape>IBeamCursor</cursorShape>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In &amp;quot;Single-Molecule Prediction&amp;quot; module, first input the &lt;span style=&quot; font-weight:600;&quot;&gt;SMILES&lt;/span&gt; string of the compound. Next, select the CYP450 isoforms you aim to predict in the &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;Select Prediction Models&amp;quot;&lt;/span&gt; section. Once you have made your selection, click the &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;START PREDICTION&amp;quot;&lt;/span&gt; button to initiate the prediction process. The prediction results will be displayed directly in the table below. Meanwhile, we also support downloading the results, just click the &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;Save Results&amp;quot;&lt;/span&gt; button below the table. Note that the downloaded file will contain all the data currently displayed in the table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -424,7 +314,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="start_batch_title_label">
+      <widget class="QLabel" name="copy_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -434,7 +324,7 @@
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>22</height>
+         <height>44</height>
         </size>
        </property>
        <property name="font">
@@ -447,47 +337,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;2. Batch Prediction&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::RichText</enum>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="start_batch_content_label">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>88</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Segoe UI</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="cursor">
-        <cursorShape>IBeamCursor</cursorShape>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In &amp;quot;Batch Prediction&amp;quot; module, we provide support for predicting a collection of compounds simultaneously. However, the way to input compounds is different. You should click the &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;Browse&amp;quot;&lt;/span&gt; button to upload a file in txt or sdf format that contains the compounds. The subsequent steps are the same as those in &amp;quot;Single-Molecule Prediction&amp;quot; module.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Copyright &amp;copy; 2023 Laboratory of Molecular Modeling and Design, School of Pharmacy, East China University of Science and Technology. All rights reserved.</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -520,7 +370,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="doc_label">
+      <widget class="QLabel" name="license_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -530,7 +380,7 @@
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>22</height>
+         <height>66</height>
         </size>
        </property>
        <property name="font">
@@ -542,8 +392,11 @@
        <property name="cursor">
         <cursorShape>IBeamCursor</cursorShape>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you're looking for a more detailed tutorial, please refer to our &lt;a href=&quot;https://example.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0055ff;&quot;&gt;documentation&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;License&lt;/span&gt;: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see &lt;a href=&quot;https://github.com/xli7654321/Uni-CYPred&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;https://github.com/xli7654321/Uni-CYPred&lt;/span&gt;&lt;/a&gt; for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -552,7 +405,7 @@
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
        </property>
        <property name="wordWrap">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="openExternalLinks">
         <bool>true</bool>
@@ -573,6 +426,124 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
+         <height>10</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="contact_label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Developer: Xiang Li and Prof. Weihua Li. Contact us by Email (&lt;a href=&quot;xli3667@mail.ecust.edu.cn&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;xli3667@mail.ecust.edu.cn&lt;/span&gt;&lt;/a&gt; and &lt;a href=&quot;whli@ecust.edu.cn&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;whli@ecust.edu.cn&lt;/span&gt;&lt;/a&gt;). See &lt;a href=&quot;https://lmmd.ecust.edu.cn/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;LMMD&lt;/span&gt;&lt;/a&gt; for more information about our laboratory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_9">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>10</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="thanks_label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We would also like to express our gratitude to scikit-learn, RDKit, and DeepChem for making this software possible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_8">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
          <height>20</height>
         </size>
        </property>
@@ -584,10 +555,10 @@
         <number>10</number>
        </property>
        <item>
-        <widget class="QPushButton" name="github_btn">
+        <widget class="QPushButton" name="report_btn">
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>150</width>
            <height>0</height>
           </size>
          </property>
@@ -601,7 +572,29 @@
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
-          <string>GitHub</string>
+          <string>Report issues</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="update_btn">
+         <property name="minimumSize">
+          <size>
+           <width>180</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Check for updates</string>
          </property>
         </widget>
        </item>
@@ -621,7 +614,7 @@
       </layout>
      </item>
      <item>
-      <spacer name="verticalSpacer_8">
+      <spacer name="verticalSpacer_4">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -631,7 +624,7 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>80</height>
+         <height>140</height>
         </size>
        </property>
       </spacer>

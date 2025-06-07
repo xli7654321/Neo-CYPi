@@ -34,6 +34,8 @@ QHeaderView {
 
 #sidebar_widget {
     background-color: #313a46;
+    /* background-color: #202C93; */
+    /* background-color: #003366; */
 }
 
 #logo_label {
@@ -44,15 +46,23 @@ QHeaderView {
 #sidebar_widget QPushButton {
     border: none;
     color: #788596;
+    /* color: #6070DB; */
+    /* color: #477EB6; */
     padding: 10px 0 10px 0;
 }
 
 #sidebar_widget QPushButton:hover {
     background-color: rgba(86, 101, 115, 0.5);
+    /* background-color: rgba(66, 83, 187, 0.5); */
+    /* background-color: rgba(37, 94, 147, 0.5); */
 }
 
 #sidebar_widget QPushButton:checked {
     color: white;
+}
+
+#sidebar_widget QPushButton:focus {
+    outline: none;
 }
 
 #exit_btn:pressed {
@@ -74,7 +84,15 @@ QHeaderView {
 }
 
 #home_title_label {
-    color: rgb(0, 85, 255);
+    color: #1cbf70;
+}
+
+#start_single_title_label {
+    color: #1cbf70;
+}
+
+#start_batch_title_label {
+    color: #1cbf70;
 }
 
 /* style for single page content widget */
@@ -120,7 +138,7 @@ QHeaderView {
 }
 
 #about_title_label {
-    color: rgb(0, 85, 255);
+    color: #1cbf70;
 }
 
 /* style for statusbar widget */
