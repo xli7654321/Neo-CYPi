@@ -1,6 +1,6 @@
-# Uni-CYPred
+# NEXT-CYPInh
 
-Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.
+NEXT-CYPInh is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.
 
 ## Usage
 

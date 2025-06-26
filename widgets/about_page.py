@@ -13,8 +13,8 @@ class AboutPage(QWidget, Ui_aboutPage):
 
     @Slot()
     def open_report_url(self):
-        QDesktopServices.openUrl(QUrl('https://github.com/xli7654321/Uni-CYPred/issues'))
+        QDesktopServices.openUrl(QUrl('https://github.com/xli7654321/NEXT-CYPInh/issues'))
 
     @Slot()
     def open_update_url(self):
-        QDesktopServices.openUrl(QUrl('https://github.com/xli7654321/Uni-CYPred/releases'))
+        QDesktopServices.openUrl(QUrl('https://github.com/xli7654321/NEXT-CYPInh/releases'))

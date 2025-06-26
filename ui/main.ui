@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>1010</width>
     <height>667</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
+    <width>1010</width>
     <height>667</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1000</width>
+    <width>1010</width>
     <height>667</height>
    </size>
   </property>
@@ -29,7 +29,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Uni-CYPred</string>
+   <string>NEXT-CYPInh</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../static/resource.qrc">
@@ -217,13 +217,13 @@
      <widget class="QWidget" name="sidebar_widget" native="true">
       <property name="minimumSize">
        <size>
-        <width>136</width>
+        <width>146</width>
         <height>667</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>136</width>
+        <width>146</width>
         <height>667</height>
        </size>
       </property>
@@ -260,12 +260,12 @@
          <property name="font">
           <font>
            <family>Sitka</family>
-           <pointsize>16</pointsize>
+           <pointsize>15</pointsize>
            <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Uni-CYPred</string>
+          <string>NEXT-CYPInh</string>
          </property>
          <property name="scaledContents">
           <bool>false</bool>

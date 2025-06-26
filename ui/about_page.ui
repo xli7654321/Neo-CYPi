@@ -197,7 +197,7 @@
         <enum>QFrame::Plain</enum>
        </property>
        <property name="text">
-        <string>Uni-CYPred</string>
+        <string>NEXT-CYPInh</string>
        </property>
        <property name="textFormat">
         <enum>Qt::PlainText</enum>
@@ -231,7 +231,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>Version 1.1.0</string>
+        <string>Version 1.0</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -281,7 +281,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>Uni-CYPred is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;NEXT-CYPInh&lt;/span&gt; is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -337,7 +337,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>Copyright &amp;copy; 2023 Laboratory of Molecular Modeling and Design, School of Pharmacy, East China University of Science and Technology. All rights reserved.</string>
+        <string>Copyright &amp;copy; 2025 Laboratory of Molecular Modeling and Design, School of Pharmacy, East China University of Science and Technology. All rights reserved.</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -396,7 +396,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;License&lt;/span&gt;: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see &lt;a href=&quot;https://github.com/xli7654321/Uni-CYPred&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;https://github.com/xli7654321/Uni-CYPred&lt;/span&gt;&lt;/a&gt; for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;License&lt;/span&gt;: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see &lt;a href=&quot;https://github.com/xli7654321/NEXT-CYPInh&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;https://github.com/xli7654321/NEXT-CYPInh&lt;/span&gt;&lt;/a&gt; for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -455,7 +455,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Developer: Xiang Li and Prof. Weihua Li. Contact us by Email (&lt;a href=&quot;xli3667@mail.ecust.edu.cn&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;xli3667@mail.ecust.edu.cn&lt;/span&gt;&lt;/a&gt; and &lt;a href=&quot;whli@ecust.edu.cn&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;whli@ecust.edu.cn&lt;/span&gt;&lt;/a&gt;). See &lt;a href=&quot;https://lmmd.ecust.edu.cn/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;LMMD&lt;/span&gt;&lt;/a&gt; for more information about our laboratory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contact us: &lt;a href=&quot;xli3667@mail.ecust.edu.cn&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;Xiang Li&lt;/span&gt;&lt;/a&gt; and &lt;a href=&quot;whli@ecust.edu.cn&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;Prof. Weihua Li&lt;/span&gt;&lt;/a&gt;. See &lt;a href=&quot;https://lmmd.ecust.edu.cn/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;LMMD&lt;/span&gt;&lt;/a&gt; for more information about our laboratory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -514,7 +514,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We would also like to express our gratitude to scikit-learn, RDKit, and DeepChem for making this software possible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;We gratefully acknowledge scikit-learn, RDKit, and DeepChem, which made this software possible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
