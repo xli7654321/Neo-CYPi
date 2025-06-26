@@ -255,7 +255,7 @@ class Ui_homePage(object):
         homePage.setWindowTitle(QCoreApplication.translate("homePage", u"homePage", None))
         self.home_icon.setText("")
         self.home_label.setText(QCoreApplication.translate("homePage", u"Home", None))
-        self.home_title_label.setText(QCoreApplication.translate("homePage", u"NEXT-CYPInh", None))
+        self.home_title_label.setText(QCoreApplication.translate("homePage", u"Neo-CYPi", None))
         self.version_label.setText(QCoreApplication.translate("homePage", u"Version 1.0", None))
         self.home_icon_2.setText("")
         self.start_label.setText(QCoreApplication.translate("homePage", u"<html><head/><body><p><span style=\" font-weight:600;\">Usage</span></p></body></html>", None))

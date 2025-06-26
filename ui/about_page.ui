@@ -197,7 +197,7 @@
         <enum>QFrame::Plain</enum>
        </property>
        <property name="text">
-        <string>NEXT-CYPInh</string>
+        <string>Neo-CYPi</string>
        </property>
        <property name="textFormat">
         <enum>Qt::PlainText</enum>
@@ -281,7 +281,7 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;NEXT-CYPInh&lt;/span&gt; is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Neo-CYPi&lt;/span&gt; is an open-source software specifically designed for predicting potential inhibitors of Cytochrome P450 enzymes based on our existing best models.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -396,7 +396,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;License&lt;/span&gt;: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see &lt;a href=&quot;https://github.com/xli7654321/NEXT-CYPInh&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;https://github.com/xli7654321/NEXT-CYPInh&lt;/span&gt;&lt;/a&gt; for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;License&lt;/span&gt;: This software is powered by the PySide6 library (LGPLv3) and is released under the BSD 3-Clause License. Please see &lt;a href=&quot;https://github.com/xli7654321/Neo-CYPi&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1cbf70;&quot;&gt;https://github.com/xli7654321/Neo-CYPi&lt;/span&gt;&lt;/a&gt; for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>

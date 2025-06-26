@@ -24,9 +24,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1010, 667)
-        MainWindow.setMinimumSize(QSize(1010, 667))
-        MainWindow.setMaximumSize(QSize(1010, 667))
+        MainWindow.resize(1000, 667)
+        MainWindow.setMinimumSize(QSize(1000, 667))
+        MainWindow.setMaximumSize(QSize(1000, 667))
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(12)
@@ -114,8 +114,8 @@ class Ui_MainWindow(object):
 
         self.sidebar_widget = QWidget(self.centralwidget)
         self.sidebar_widget.setObjectName(u"sidebar_widget")
-        self.sidebar_widget.setMinimumSize(QSize(146, 667))
-        self.sidebar_widget.setMaximumSize(QSize(146, 667))
+        self.sidebar_widget.setMinimumSize(QSize(136, 667))
+        self.sidebar_widget.setMaximumSize(QSize(136, 667))
         self.sidebar_vLayout = QVBoxLayout(self.sidebar_widget)
         self.sidebar_vLayout.setSpacing(0)
         self.sidebar_vLayout.setObjectName(u"sidebar_vLayout")
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.logo_label.setMaximumSize(QSize(16777215, 16777215))
         font2 = QFont()
         font2.setFamilies([u"Sitka"])
-        font2.setPointSize(15)
+        font2.setPointSize(16)
         font2.setBold(False)
         self.logo_label.setFont(font2)
         self.logo_label.setScaledContents(False)
@@ -209,9 +209,9 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"NEXT-CYPInh", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Neo-CYPi", None))
         self.status_label.setText("")
-        self.logo_label.setText(QCoreApplication.translate("MainWindow", u"NEXT-CYPInh", None))
+        self.logo_label.setText(QCoreApplication.translate("MainWindow", u"Neo-CYPi", None))
         self.home_btn.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.single_btn.setText(QCoreApplication.translate("MainWindow", u"Single Molecule\n"
 "Prediction", None))

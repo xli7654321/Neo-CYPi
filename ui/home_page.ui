@@ -194,7 +194,7 @@
         <enum>QFrame::Plain</enum>
        </property>
        <property name="text">
-        <string>NEXT-CYPInh</string>
+        <string>Neo-CYPi</string>
        </property>
        <property name="textFormat">
         <enum>Qt::PlainText</enum>
